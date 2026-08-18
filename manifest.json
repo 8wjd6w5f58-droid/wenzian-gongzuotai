@@ -1,0 +1,17 @@
+{
+  "name": "女性成长文案工作台",
+  "short_name": "文案工作台",
+  "description": "小红书/抖音文案拆解分析 + 六维标签素材库",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF5F8",
+  "theme_color": "#F06292",
+  "lang": "zh-CN",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

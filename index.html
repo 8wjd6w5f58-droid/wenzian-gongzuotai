@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>女性成长文案工作台 · 拆解分析 + 素材库</title>
+<!-- PWA：手机添加到桌面 -->
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="文案工作台">
+<meta name="theme-color" content="#F06292">
+<meta name="format-detection" content="telephone=no">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: #FFF5F8;
+    background-image: radial-gradient(circle at 12% 8%, #FFE3EC 0%, transparent 28%),
+                      radial-gradient(circle at 88% 92%, #FFE9F1 0%, transparent 30%);
+    color: #4A2B36; font-size: 14px; line-height: 1.65;
+    min-height: 100vh;
+  }
+  .container { max-width: 1060px; margin: 0 auto; padding: 24px 16px 70px; }
+
+  /* ===== 头部 Hello Kitty ===== */
+  header { text-align: center; margin-bottom: 18px; position: relative; }
+  header .kitty { display: block; margin: 0 auto 6px; }
+  header h1 { font-size: 22px; font-weight: 700; color: #B03A63; letter-spacing: 1px; }
+  header p { font-size: 12px; color: #C48AA0; margin-top: 4px; }
+
+  /* ===== 标签页 ===== */
+  .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 18px; }
+  .tab-btn {
+    border: 1.5px solid #F3BFD1; background: #fff; color: #B03A63;
+    border-radius: 999px; padding: 8px 26px; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all .18s; display: flex; align-items: center; gap: 6px;
+  }
+  .tab-btn:hover { background: #FFE9F1; }
+  .tab-btn.active { background: linear-gradient(135deg, #F06292, #E8467C); color: #fff; border-color: #E8467C; box-shadow: 0 4px 12px rgba(232,70,124,.25); }
+  .tab-btn .cnt { background: #fff; color: #E8467C; border-radius: 999px; font-size: 11px; padding: 0 7px; line-height: 1.7; }
+  .tab-btn.active .cnt { background: rgba(255,255,255,.3); color: #fff; }
+
+  .card { background: #fff; border: 1px solid #F6D6E1; border-radius: 16px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(232,70,124,.05); }
+  .card h3 { font-size: 15px; font-weight: 700; color: #B03A63; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .card h3 .sub { font-size: 12px; color: #C48AA0; font-weight: 400; }
+
+  label.fl { display: block; font-size: 13px; font-weight: 600; color: #8A5568; margin: 12px 0 6px; }
+  label.fl:first-of-type { margin-top: 0; }
+  input[type=text], textarea {
+    width: 100%; border: 1.5px solid #F0C4D4; border-radius: 10px;
+    padding: 10px 12px; font-size: 14px; outline: none; background: #FFFBFC;
+    font-family: inherit; color: #4A2B36; resize: vertical;
+  }
+  input[type=text]:focus, textarea:focus { border-color: #F06292; background: #fff; box-shadow: 0 0 0 3px rgba(240,98,146,.12); }
+  .hint { font-size: 12px; color: #C48AA0; margin-top: 6px; }
+
+  .btn {
+    border: none; border-radius: 999px; padding: 10px 24px; font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: all .18s; font-family: inherit;
+  }
+  .btn-main { background: linear-gradient(135deg, #F06292, #E8467C); color: #fff; box-shadow: 0 4px 12px rgba(232,70,124,.28); }
+  .btn-main:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(232,70,124,.35); }
+  .btn-light { background: #FFE9F1; color: #B03A63; }
+  .btn-light:hover { background: #FFD9E6; }
+  .btn-ghost { background: #fff; color: #B03A63; border: 1.5px solid #F3BFD1; }
+  .btn-ghost:hover { background: #FFE9F1; }
+  .btn-sm { padding: 5px 14px; font-size: 12px; }
+
+  .row-flex { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .check-row { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #8A5568; cursor: pointer; user-select: none; }
+  .check-row input { accent-color: #F06292; width: 15px; height: 15px; cursor: pointer; }
+
+  /* 封面上传 */
+  .cover-box { display: flex; gap: 14px; align-items: flex-start; }
+  .cover-drop {
+    flex-shrink: 0; width: 148px; height: 190px; border: 2px dashed #F3BFD1; border-radius: 14px;
+    background: #FFFBFC; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; color: #C48AA0; font-size: 12px; gap: 6px; transition: all .18s; overflow: hidden; position: relative;
+  }
+  .cover-drop:hover { border-color: #F06292; background: #FFF0F5; }
+  .cover-drop img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .cover-drop.has-img .ph { display: none; }
+
+  /* 平台徽标 */
+  .badge { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 600; }
+  .bd-xhs { background: #FFECF0; color: #E8467C; border: 1px solid #FBC5D4; }
+  .bd-dy { background: #EAF6FF; color: #2A6FA8; border: 1px solid #BBDFF7; }
+  .bd-none { background: #F3EEF0; color: #9A7E8A; border: 1px solid #DFCDD5; }
+
+  .score-badge { border-radius: 999px; padding: 3px 12px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+  .grade-a { background: #E8F8EE; color: #0F6E56; }
+  .grade-b { background: #FDF3DC; color: #96650B; }
+  .grade-c { background: #FCE9EC; color: #B3254A; }
+
+  /* 分析结果 */
+  .result-panel { margin-top: 16px; display: none; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .tag { font-size: 12px; padding: 1px 9px; border-radius: 999px; border: 0.5px solid; }
+  .tag-info { background: #FFECF0; color: #C2185B; border-color: #F7C1D2; }
+  .tag-gray { background: #F5EDF0; color: #8A6E79; border-color: #DCC7CF; }
+  .tag-warn { background: #FCE9EC; color: #B3254A; border-color: #F4B8C6; }
+  .tag-ok { background: #E8F8EE; color: #0F6E56; border-color: #B4E5CB; }
+  .advice { margin-top: 8px; font-size: 13px; color: #6B4A57; background: #FFF7FA; border: 1px solid #FBE2EB; border-radius: 8px; padding: 8px 12px; }
+  .advice b { color: #C2185B; }
+
+
+  .variants { margin-top: 8px; }
+  .variant { display: flex; align-items: center; gap: 8px; background: #FFECF0; border: 1px solid #F7C1D2; border-radius: 8px; padding: 6px 10px; margin-bottom: 5px; cursor: pointer; transition: background .15s; }
+  .variant:hover { background: #FFDDE7; }
+  .v-type { flex-shrink: 0; font-size: 11px; color: #C2185B; border: 0.5px solid #F49BB5; border-radius: 999px; padding: 0 8px; line-height: 1.7; }
+  .v-text { flex: 1; font-size: 13px; color: #7A2C47; font-weight: 500; word-break: break-all; }
+  .v-copy { flex-shrink: 0; font-size: 11px; color: #C48AA0; }
+  .v-note { font-size: 11px; color: #D4A9B8; margin-top: 4px; }
+
+  /* 六维标签选择 */
+  .dim-block { border: 1px solid #F6D6E1; border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; background: #FFFBFC; }
+  .dim-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .dim-name { font-size: 13px; font-weight: 700; color: #B03A63; }
+  .dim-rule { font-size: 11px; color: #D4A9B8; }
+  .chip { display: inline-block; border: 1.5px solid #F0C4D4; background: #fff; color: #8A5568; border-radius: 999px; padding: 3px 13px; font-size: 12.5px; margin: 0 6px 6px 0; cursor: pointer; transition: all .15s; user-select: none; }
+  .chip:hover { border-color: #F06292; color: #C2185B; }
+  .chip.on { background: linear-gradient(135deg, #F06292, #E8467C); color: #fff; border-color: #E8467C; }
+  .chip.rec::after { content: "荐"; font-size: 10px; background: #FFD54F; color: #7A5A00; border-radius: 999px; padding: 0 4px; margin-left: 4px; vertical-align: 1px; }
+
+  /* 素材库 */
+  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 6px; }
+  .filter-bar input[type=text] { width: 220px; }
+  .dim-filter { margin: 8px 0 2px; }
+  .dim-filter .df-label { font-size: 12px; color: #C48AA0; margin-right: 6px; }
+  .mat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 12px; }
+  .mat-card { background: #fff; border: 1px solid #F6D6E1; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: all .18s; }
+  .mat-card:hover { box-shadow: 0 6px 18px rgba(232,70,124,.12); transform: translateY(-2px); }
+  .mat-cover { height: 130px; background: linear-gradient(135deg, #FFD9E6, #FFECF0); display: flex; align-items: center; justify-content: center; position: relative; }
+  .mat-cover img { width: 100%; height: 100%; object-fit: cover; }
+  .mat-body { padding: 12px 14px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .mat-title { font-size: 14px; font-weight: 700; color: #5C3345; line-height: 1.45; word-break: break-all; }
+  .mat-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .status-pill { font-size: 11px; border-radius: 999px; padding: 1px 9px; border: 1px solid; cursor: pointer; }
+  .st-0 { background: #FDF3DC; color: #96650B; border-color: #F0DCA8; }
+  .st-1 { background: #E8F8EE; color: #0F6E56; border-color: #B4E5CB; }
+  .st-2 { background: #EAF6FF; color: #2A6FA8; border-color: #BBDFF7; }
+  .mat-foot { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #F6D6E1; padding: 8px 14px; }
+  .mat-date { font-size: 11px; color: #D4A9B8; }
+  .mat-actions button { border: none; background: none; color: #C48AA0; cursor: pointer; font-size: 12px; padding: 2px 6px; }
+  .mat-actions button:hover { color: #E8467C; }
+
+  .empty { text-align: center; color: #D4A9B8; padding: 50px 0; font-size: 13px; }
+
+  /* 弹窗 */
+  .modal-mask { display: none; position: fixed; inset: 0; background: rgba(90,40,60,.35); z-index: 50; align-items: center; justify-content: center; padding: 16px; }
+  .modal-mask.show { display: flex; }
+  .modal { background: #fff; border-radius: 18px; padding: 22px; width: 100%; max-width: 560px; max-height: 86vh; overflow-y: auto; }
+  .modal h3 { color: #B03A63; font-size: 16px; margin-bottom: 6px; }
+  .modal .m-title-preview { font-size: 13px; color: #8A5568; background: #FFF7FA; border-radius: 8px; padding: 8px 12px; margin-bottom: 10px; word-break: break-all; }
+  .modal-foot { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+
+  .toast { position: fixed; top: 18px; left: 50%; transform: translateX(-50%); background: #B03A63; color: #fff; border-radius: 999px; padding: 8px 22px; font-size: 13px; z-index: 99; opacity: 0; transition: opacity .25s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+
+  /* 手机访问横幅 */
+  #phoneBanner { display: flex; gap: 14px; align-items: center; background: linear-gradient(135deg, #FFF0F5, #FFE4EE); border: 1.5px solid #F3BFD1; border-radius: 14px; padding: 12px 16px; margin-bottom: 14px; position: relative; flex-wrap: wrap; }
+  .banner-close { position: absolute; top: 6px; right: 10px; cursor: pointer; color: #C48AA0; font-size: 13px; padding: 2px 4px; }
+  .banner-close:hover { color: #B03A63; }
+
+  /* 移动端适配 */
+  @media (max-width: 720px) {
+    .container { padding: 16px 12px 90px; }
+    .cover-box { flex-direction: column; }
+    .cover-box .cover-drop, .cover-box .cover-drop img { width: 100%; }
+    .tab-btn { padding: 8px 18px; font-size: 13px; }
+    header h1 { font-size: 19px; }
+    #phoneBanner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <svg class="kitty" width="86" height="62" viewBox="0 0 86 62" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="17" cy="20" rx="12" ry="14" fill="#fff" stroke="#3A3A3A" stroke-width="2" transform="rotate(-18 17 20)"/>
+      <ellipse cx="69" cy="20" rx="12" ry="14" fill="#fff" stroke="#3A3A3A" stroke-width="2" transform="rotate(18 69 20)"/>
+      <ellipse cx="43" cy="36" rx="30" ry="24" fill="#fff" stroke="#3A3A3A" stroke-width="2"/>
+      <ellipse cx="34" cy="34" rx="3.4" ry="4.6" fill="#3A3A3A"/>
+      <ellipse cx="52" cy="34" rx="3.4" ry="4.6" fill="#3A3A3A"/>
+      <ellipse cx="43" cy="43" rx="3.2" ry="2.4" fill="#F2B33D"/>
+      <path d="M43 45 v4 M43 49 q-5 4 -9 1 M43 49 q5 4 9 1" stroke="#3A3A3A" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <line x1="8" y1="36" x2="22" y2="38" stroke="#3A3A3A" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="8" y1="43" x2="22" y2="42" stroke="#3A3A3A" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="64" y1="38" x2="78" y2="36" stroke="#3A3A3A" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="64" y1="42" x2="78" y2="43" stroke="#3A3A3A" stroke-width="1.6" stroke-linecap="round"/>
+      <g transform="translate(24,8)">
+        <path d="M14 10 q-2 -12 8 -9 q4 -8 10 -1 q6 -3 5 5 q6 3 -2 8 q-8 4 -21 -3z" fill="#F0436B" stroke="#C2185B" stroke-width="1.4"/>
+        <circle cx="13" cy="8" r="2.6" fill="#FF8FAE"/>
+      </g>
+    </svg>
+    <h1>女性成长文案工作台</h1>
+    <p>链接自动读取 · 标题打分优化 · 六维标签 · 素材库 | 数据保存在本地浏览器</p>
+  </header>
+
+  <div id="phoneBanner" style="display:none">
+    <div style="flex:1;min-width:200px">
+      <div style="font-weight:700;color:#B03A63;font-size:13px;">📱 手机打开这个地址（同一 WiFi）</div>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap;">
+        <code id="phoneUrl" style="background:#FFE9F1;padding:4px 10px;border-radius:8px;color:#D4537E;font-size:13px;word-break:break-all;"></code>
+        <button class="btn btn-ghost btn-sm" onclick="copyPhoneUrl(this)">复制</button>
+      </div>
+      <div class="hint" style="margin-top:4px;">安卓 Chrome：菜单 → 添加到主屏幕 / 安装应用；iPhone Safari：分享 → 添加到主屏幕，即可在桌面生成入口。</div>
+    </div>
+    <div style="text-align:center;flex-shrink:0">
+      <img id="phoneQr" alt="手机访问二维码" width="92" height="92" style="border-radius:10px;background:#fff;padding:4px;border:1px solid #F6D6E1;">
+      <div class="hint" style="margin-top:2px;">扫码直达</div>
+    </div>
+    <span class="banner-close" onclick="hidePhoneBanner()" title="关闭">✕</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tabBtnAnalyze" onclick="switchTab('analyze')">🎀 拆解分析</button>
+    <button class="tab-btn" id="tabBtnLib" onclick="switchTab('lib')">📚 素材库 <span class="cnt" id="libCount">0</span></button>
+  </div>
+
+  <!-- ===================== 拆解分析 ===================== -->
+  <div id="pageAnalyze">
+    <div class="card">
+      <h3>📥 导入文章 <span class="sub">第 1 步：粘贴链接和内容</span></h3>
+
+      <label class="fl">文章链接（小红书 / 抖音）</label>
+      <div class="row-flex">
+        <input type="text" id="inpUrl" style="flex:1;min-width:200px" placeholder="粘贴小红书或抖音分享链接，自动识别平台" oninput="detectPlatform()">
+        <button class="btn btn-main" style="flex-shrink:0" onclick="fetchArticle()">🔍 自动读取</button>
+      </div>
+      <div class="meta-row" style="margin-top:6px;">
+        <span id="platformBadge" class="badge bd-none">未识别平台</span>
+        <span class="hint" style="margin:0;">自动读取需启动本地小助手：在本文件夹运行 <b>node 工作台服务器.js</b>，再打开 http://localhost:8787 。平台有登录墙，抓不全时请手动粘贴/上传下方内容</span>
+      </div>
+
+      <label class="fl">标题</label>
+      <input type="text" id="inpTitle" maxlength="100" placeholder="粘贴文章标题，如：30岁才明白，女生一定要学会搞钱">
+
+      <label class="fl">首图（可选，仅存为素材库卡片缩略图）</label>
+      <div class="cover-box">
+        <div class="cover-drop" id="coverDrop" onclick="document.getElementById('coverFile').click()">
+          <img id="coverPreview" style="display:none" alt="">
+          <div class="ph">
+            <svg width="34" height="26" viewBox="0 0 34 26"><ellipse cx="7" cy="8" rx="5" ry="6" fill="#FFD9E6"/><ellipse cx="27" cy="8" rx="5" ry="6" fill="#FFD9E6"/><ellipse cx="17" cy="15" rx="13" ry="10" fill="#FFD9E6"/><circle cx="13" cy="14" r="1.5" fill="#B03A63"/><circle cx="21" cy="14" r="1.5" fill="#B03A63"/></svg>
+            <span>点击上传首图</span>
+          </div>
+        </div>
+        <div style="flex:1">
+          <textarea id="inpBody" rows="9" placeholder="粘贴正文内容到这里（用于六维标签拆解）……"></textarea>
+          <div class="hint" style="margin-top:6px;">正文粘贴后自动生成六维标签推荐</div>
+        </div>
+      </div>
+      <input type="file" id="coverFile" accept="image/*" style="display:none" onchange="loadCover(this)">
+
+      <div class="row-flex" style="margin-top:16px; justify-content:space-between;">
+        <div class="row-flex">
+          <label class="check-row"><input type="checkbox" id="optAdvice" checked> 显示优化建议</label>
+          <button class="btn btn-ghost btn-sm" onclick="fillDemo()">填充示例</button>
+          <button class="btn btn-ghost btn-sm" onclick="resetForm()">清空表单</button>
+        </div>
+        <button class="btn btn-main" onclick="runAnalysis()">🎀 开始拆解</button>
+      </div>
+    </div>
+
+    <div class="result-panel" id="resultPanel">
+
+    <div class="card" id="titleAnalysisCard">
+      <h3>📝 标题打分与优化 <span class="sub">第 2 步：查看标题得分、建议与改写示例</span></h3>
+      <div id="titleResult"></div>
+      <div class="variants" id="variantBox"></div>
+    </div>
+
+      <div class="card">
+        <h3>🏷️ 正文六维标签拆解 <span class="sub">第 3 步：确认标签（点击切换选中，标「荐」为自动推荐）</span></h3>
+        <div id="dimBox"></div>
+        <div class="row-flex" style="justify-content:flex-end; margin-top:6px;">
+          <span class="hint" id="tagRuleTip" style="margin-right:auto;"></span>
+          <button class="btn btn-main" onclick="saveToLib()">💾 存入素材库</button>
+        </div>
+      </div>
+
+      <div class="card" id="bodyAdviceCard" style="display:none">
+        <h3>💡 正文优化建议</h3>
+        <div id="bodyAdvice"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 素材库 ===================== -->
+  <div id="pageLib" style="display:none">
+    <div class="card">
+      <h3>🔎 筛选 <span class="sub">点击标签即筛选，再点取消</span></h3>
+      <div class="filter-bar">
+        <input type="text" id="searchKw" placeholder="搜索标题 / 正文关键词…" oninput="renderLib()">
+        <span class="hint" style="margin:0;">状态：</span>
+        <span class="chip" onclick="toggleStatusFilter('待拆解', this)">待拆解</span>
+        <span class="chip" onclick="toggleStatusFilter('已拆解', this)">已拆解</span>
+        <span class="chip" onclick="toggleStatusFilter('已使用', this)">已使用</span>
+      </div>
+      <div class="dim-filter" id="tagFilterBox"></div>
+    </div>
+
+    <div class="row-flex" style="justify-content:space-between; margin: 14px 4px 4px;">
+      <h3 style="color:#B03A63;">📚 我的素材（<span id="libShown">0</span> 篇）</h3>
+      <div class="row-flex">
+        <button class="btn btn-ghost btn-sm" onclick="exportLib()">导出 JSON</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('importFile').click()">导入 JSON</button>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importLib(this)">
+      </div>
+    </div>
+    <div class="mat-grid" id="matGrid"></div>
+    <div class="empty" id="libEmpty">素材库还是空的～去「拆解分析」导入第一篇文章吧 🎀</div>
+  </div>
+</div>
+
+<!-- 标签编辑弹窗 -->
+<div class="modal-mask" id="editModal">
+  <div class="modal">
+    <h3>🏷️ 编辑六维标签</h3>
+    <div class="m-title-preview" id="editTitlePreview"></div>
+    <div id="editDimBox"></div>
+    <div class="modal-foot">
+      <button class="btn btn-light" onclick="closeEdit()">取消</button>
+      <button class="btn btn-main" onclick="saveEdit()">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ 字典与分析引擎（与标题分析器同源） ============ */
+const DICTS = {
+  emotion: ["清醒","逆袭","破防","扎心","治愈","焦虑","内耗","上瘾","停止","戒掉","狠狠","偷偷","疯狂","后悔","遗憾","温柔","勇敢","自愈","松弛","拧巴","救命","委屈","心酸","爽","心动","沉住气","狠劲","底气","emo","迷茫","焦虑","快乐","安全感","成就感"],
+  crowd: ["女生","女人","姐妹","宝妈","打工人","学生党","大学生","30岁","25岁","35岁","40岁","职场","普通女孩","i人","e人","独居","单身","女大学生","姐姐","妹妹","职场新人","毕业生","内向者","裸辞","辞职","gap","自由职业","考研","考公","体制内","留学生","全职妈妈","北漂","沪漂","深漂","社恐","高敏感","小镇做题家"],
+  suspense: ["真相","其实","秘密","原因","为什么","背后","内幕","潜规则","才知道","没人告诉你","建议收藏","必看","看懂","悟了","觉醒"],
+  warn: ["别再","千万","不要","停止","戒掉","趁早","晚了就","求你","警惕","远离"],
+  contrast: ["却","反而","原来","没想到","直到","居然","竟然","才"],
+  question: ["如何","怎么","凭什么","吗","？","为何"],
+  sensitive: ["最低","最好","第一名","绝对","百分百","100%","免费送","点击链接","私信我","加v","加V","微信","转账","兼职","躺赚","暴富"]
+};
+const HOOK_NAMES = { suspense: "悬念钩子", warn: "警告劝退", contrast: "反差结构", question: "提问互动", number: "数字清单" };
+
+function hitWords(t, dict) { return dict.filter(w => t.includes(w)); }
+function countLen(t) { return t.replace(/\s/g, "").length; }
+function hasNumber(t) { return /\d/.test(t) || /[一二两三四五六七八九十百][个条件种年岁天月次步招块钱]/.test(t); }
+
+function analyze(title) {
+  const len = countLen(title);
+  const hits = {};
+  for (const k of Object.keys(DICTS)) hits[k] = hitWords(title, DICTS[k]);
+  const numberHit = hasNumber(title);
+  const emojiHit = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(title);
+  let score = 50; const advice = [];
+  if (len >= 8 && len <= 18) score += 15;
+  else if (len > 18 && len <= 20) { score += 8; advice.push("标题偏长（" + len + "字），建议压缩到18字内、钩子词前置"); }
+  else if (len < 8) { score -= 5; advice.push("标题太短（" + len + "字），建议补人群词或具体场景"); }
+  else { score -= 10; advice.push("标题超长（" + len + "字）会被截断，务必精简到20字内"); }
+  if (numberHit) score += 10; else advice.push("可加入具体数字（如「3个习惯」「30岁」）提升点击率");
+  if (hits.crowd.length) score += 10; else advice.push("可加入人群词（如「女生」「30+」「打工人」）增强代入感");
+  if (hits.emotion.length) score += Math.min(15, hits.emotion.length * 6);
+  else advice.push("缺少情绪词，加一个（如「内耗」「清醒」「破防」）让标题更有张力");
+  const hooks = [];
+  if (hits.suspense.length) hooks.push("suspense");
+  if (hits.warn.length) hooks.push("warn");
+  if (hits.contrast.length >= 2) hooks.push("contrast");
+  if (hits.question.length) hooks.push("question");
+  if (numberHit && /[个条件种步招位]/.test(title)) hooks.push("number");
+  if (hooks.length >= 1) score += 10;
+  else advice.push("无明显钩子结构，可尝试悬念式（「才知道的真相」）、警告式（「别再…」）、提问式");
+  if (hits.sensitive.length) { score -= 15; advice.push("⚠️ 疑似敏感/极限词：" + hits.sensitive.join("、") + "，可能限流"); }
+  const excl = (title.match(/[！!]/g) || []).length;
+  if (excl >= 2) { score -= 5; advice.push("感叹号过多，1个足够"); }
+  score = Math.max(5, Math.min(100, score));
+  const grade = score >= 80 ? "A" : score >= 65 ? "B" : "C";
+  if (!advice.length) advice.push("结构完整，无明显短板，可直接使用或 A/B 测试不同钩子");
+  return { title, len, hits, numberHit, emojiHit, hooks, score, grade, advice: advice.slice(0, 4) };
+}
+
+function coreOf(title, maxLen) {
+  let c = title.replace(/[\s!！?？。.，,~～|｜#]/g, "");
+  DICTS.sensitive.forEach(w => { c = c.split(w).join(""); });
+  c = c.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, "");
+  return c.length > maxLen ? c.slice(0, maxLen) : c;
+}
+function firstNum(title) {
+  const m = title.match(/(\d+)\s*(个|条|件|种|年|岁|天|月|次|步|招|件事|句话|习惯)?/);
+  if (m && m[1]) return m[2] ? m[1] + m[2] : m[1] + "个";
+  const cn = title.match(/[一二两三四五六七八九十百]+(个|条|件|种|年|岁|天|月|次|步|招)/);
+  return cn ? cn[0] : "5个";
+}
+function genVariants(it) {
+  const t = it.title;
+  const crowd = it.hits.crowd[0] || "女生";
+  const emo = it.hits.emotion[0] || "内耗";
+  const num = firstNum(t);
+  const shortCore = coreOf(t, 10), midCore = coreOf(t, 14);
+  const list = [
+    { type: "数字清单", text: crowd + "一定要懂的" + num + "｜" + midCore },
+    { type: "警告劝退", text: "别再" + emo + "了！" + shortCore + "才是解药" },
+    { type: "悬念式", text: shortCore + "，没人告诉你的真相" },
+    { type: "提问式", text: "为什么" + crowd + "都在偷偷" + emo + "？" },
+    { type: "反差式", text: "从" + emo + "到清醒，" + crowd + "只用了" + num }
+  ];
+  const seen = new Set([t]); const out = [];
+  for (const v of list) {
+    if (v.text.length > 20) v.text = v.text.slice(0, 20);
+    if (!seen.has(v.text)) { seen.add(v.text); out.push(v); }
+    if (out.length >= 4) break;
+  }
+  return out;
+}
+
+/* ============ 封面（仅素材库缩略图）与链接自动读取 ============ */
+let coverData = null; // {dataUrl}
+
+function compressCover(dataUrl, cb) {
+  const img = new Image();
+  img.onload = () => {
+    const max = 320;
+    const scale = Math.min(1, max / Math.max(img.width, img.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    coverData = { dataUrl: c.toDataURL("image/jpeg", 0.82) };
+    const pv = document.getElementById("coverPreview");
+    pv.src = coverData.dataUrl; pv.style.display = "block";
+    document.getElementById("coverDrop").classList.add("has-img");
+    if (cb) cb(true);
+  };
+  img.onerror = () => { if (cb) cb(false); };
+  img.src = dataUrl;
+}
+
+function loadCover(input) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => compressCover(e.target.result, ok => { if (ok) toast("首图已上传 ✓"); });
+  reader.readAsDataURL(file);
+}
+
+async function fetchArticle() {
+  const url = document.getElementById("inpUrl").value.trim();
+  if (!url) { toast("先粘贴链接～"); return; }
+  if (IS_CLOUD) {
+    alert("当前是「公网版」，没有本地抓取服务：\n\n小红书 / 抖音有登录墙和跨域限制，公网版无法自动读取链接内容。\n请手动把标题、正文粘贴到下方，首图手动上传。\n\n（需要一键自动读取时，请在电脑上运行：node 工作台服务器.js，然后访问 http://localhost:8787）");
+    return;
+  }
+  if (location.protocol === "file:") {
+    alert("自动读取需要启动本地小助手服务器：\n\n1. 打开命令行，进入本文件所在文件夹\n2. 运行：node 工作台服务器.js\n3. 浏览器打开 http://localhost:8787\n\n原因：小红书 / 抖音有登录墙和跨域限制，网页无法直接抓取，需要本地服务器代理请求。抓不到的内容仍可手动粘贴。");
+    return;
+  }
+  toast("正在抓取…");
+  try {
+    const r = await fetch("/api/fetch?url=" + encodeURIComponent(url));
+    const data = await r.json();
+    if (!data.ok) { toast("抓取失败：" + (data.error || "平台要求登录") + "，请手动粘贴"); return; }
+    if (data.title && !document.getElementById("inpTitle").value.trim()) document.getElementById("inpTitle").value = data.title;
+    if (data.body) document.getElementById("inpBody").value = data.body;
+    if (data.image) loadCoverFromUrl(data.image);
+    toast("抓取完成 ✓ 正文可能不全，请检查补全");
+  } catch (e) { toast("抓取失败，请手动粘贴内容"); }
+}
+
+async function loadCoverFromUrl(u) {
+  try {
+    const r = await fetch("/api/image?url=" + encodeURIComponent(u));
+    if (!r.ok) return;
+    const blob = await r.blob();
+    const rd = new FileReader();
+    rd.onload = e => compressCover(e.target.result);
+    rd.readAsDataURL(blob);
+  } catch (e) {}
+}
+
+/* ============ 六维标签体系 ============ */
+const DIMS = [
+  { key: "topic", name: "主题", prefix: "主题：", rule: "至少选 1 个", multi: true, options: ["搞钱存钱","职场成长","自我提升","情绪管理","人际关系","恋爱婚姻","外貌变美","健康作息","学习方法","消费观","独居生活","女性议题"] },
+  { key: "type", name: "类型", prefix: "类型：", rule: "至少选 1 个", multi: true, options: ["干货清单","经验复盘","故事叙事","观点输出","教程攻略","好物合集","情绪树洞","案例拆解"] },
+  { key: "emotion", name: "情绪", prefix: "情绪：", rule: "选 1-3 个", multi: true, options: ["清醒","治愈","扎心","逆袭","焦虑","内耗","破防","松弛","勇敢","温柔","心动","心酸","底气","爽感","共情"] },
+  { key: "crowd", name: "人群场景", prefix: "人群：", rule: "选 1-3 个", multi: true, options: ["女生","30+","学生党","女大学生","打工人","职场新人","中层管理","裸辞","gap期","自由职业","考研党","考公人","留学生","北漂沪漂","小镇做题家","宝妈","全职妈妈","中年女性","独居","单身","i人","社恐","高敏感","普通女孩","姐姐妹妹"] },
+  { key: "viral", name: "爆款要素", prefix: "爆款：", rule: "选 1-3 个", multi: true, options: ["数字清单","悬念钩子","警告劝退","反差结构","提问互动","情绪共鸣","身份代入","稀缺干货","真实感"] },
+  { key: "source", name: "来源状态", prefix: "来源：", rule: "选 1-2 个", multi: true, options: ["竞品拆解","灵感收集","原创草稿","已拆解"] }
+];
+const TOPIC_KEYS = {
+  "搞钱存钱": ["搞钱","存钱","副业","理财","收入","工资","攒钱","消费降级","开源","金钱"],
+  "职场成长": ["职场","工作","领导","同事","跳槽","升职","面试","上班","离职","office"],
+  "自我提升": ["自律","成长","提升","习惯","改变","坚持","认知","阅读","思维"],
+  "情绪管理": ["情绪","内耗","焦虑","崩溃","治愈","心态","和解","放过自己","精神内耗"],
+  "人际关系": ["朋友","社交","断舍离","圈子","讨好","边界","亲戚","人脉"],
+  "恋爱婚姻": ["恋爱","男朋友","婚姻","结婚","分手","老公","相亲","伴侣","另一半","crush"],
+  "外貌变美": ["变美","护肤","化妆","穿搭","减肥","身材","皮肤","变瘦","变白","审美"],
+  "健康作息": ["熬夜","早睡","作息","运动","健身","养生","睡眠","饮食"],
+  "学习方法": ["学习","笔记","考证","考研","效率","专注","复习","上岸"],
+  "消费观": ["消费","买","剁手","平替","性价比","智商税","花钱","囤货"],
+  "独居生活": ["独居","一个人","租房","一人食","孤独","生活仪式感"],
+  "女性议题": ["女性","性别","重男轻女","独立","婚姻观","生育","姐姐","她力量"]
+};
+const STATUS_LIST = ["待拆解", "已拆解", "已使用"];
+
+function analyzeBody(body) {
+  const recs = {}; // key -> recommended option list
+  const stats = { chars: countLen(body), paragraphs: body.split(/\n+/).filter(x => x.trim()).length,
+    emoji: (body.match(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu) || []).length,
+    hashtags: (body.match(/#[^\s#]{1,20}/g) || []).length };
+  // 主题
+  const topicScore = {};
+  for (const [t, keys] of Object.entries(TOPIC_KEYS)) {
+    let n = 0; keys.forEach(k => { const m = body.split(k).length - 1; n += m; });
+    if (n > 0) topicScore[t] = n;
+  }
+  const topics = Object.entries(topicScore).sort((a, b) => b[1] - a[1]).map(x => x[0]).slice(0, 2);
+  recs.topic = topics;
+  // 类型
+  const types = [];
+  if ((body.match(/^\s*\d+[、.．)）]/gm) || []).length >= 3 || /第一|第二|第三|首先|其次|最后/.test(body)) types.push("干货清单");
+  if (/我是|我曾经|那时候|后来我|毕业|年前我/.test(body) && (body.match(/我/g) || []).length >= 5) types.push("故事叙事");
+  if (/复盘|踩坑|经验|教训|总结/.test(body)) types.push("经验复盘");
+  if (/我认为|我觉得|观点|其实|本质上|真相是/.test(body)) types.push("观点输出");
+  if (/步骤|教程|怎么操作|流程|第一步/.test(body)) types.push("教程攻略");
+  if (/推荐|好物|清单|合集|分享给/.test(body)) types.push("好物合集");
+  recs.type = types.slice(0, 2);
+  if (!recs.type.length) recs.type = ["观点输出"];
+  // 情绪
+  recs.emotion = hitWords(body, DICTS.emotion).slice(0, 3).filter(w => DIMS[2].options.includes(w));
+  if (!recs.emotion.length) recs.emotion = ["共情"];
+  // 人群（正则匹配 → 映射到标签体系，按特异性排序）
+  const CROWD_MAP = [
+    [/裸辞|辞职/, "裸辞"],
+    [/\bgap\b|间隔年|gap期/i, "gap期"],
+    [/自由职业|soho|数字游民/i, "自由职业"],
+    [/小镇做题家/, "小镇做题家"],
+    [/考研|研究生/, "考研党"],
+    [/考公|公务员|体制内|编制/, "考公人"],
+    [/留学|留学生/, "留学生"],
+    [/北漂|沪漂|深漂|杭漂/, "北漂沪漂"],
+    [/全职妈妈|全职太太/, "全职妈妈"],
+    [/宝妈|当妈|妈妈们/, "宝妈"],
+    [/职场新人|毕业生|应届|初入职场/, "职场新人"],
+    [/管理层|中层|带团队/, "中层管理"],
+    [/中年|40岁|45岁/, "中年女性"],
+    [/30岁|31岁|32岁|33岁|35岁/, "30+"],
+    [/大学生|学生党|在校/, "学生党"],
+    [/打工人|上班|工位|通勤/, "打工人"],
+    [/社恐/, "社恐"],
+    [/高敏感/, "高敏感"],
+    [/普通女孩|普通人/, "普通女孩"],
+    [/独居/, "独居"],
+    [/单身|母单|脱单/, "单身"],
+    [/i人|内向/, "i人"],
+    [/姐姐|妹妹/, "姐姐妹妹"]
+  ];
+  recs.crowd = CROWD_MAP.filter(([re]) => re.test(body)).map(([, v]) => v)
+    .filter((v, i, a) => a.indexOf(v) === i).slice(0, 3);
+  if (!recs.crowd.length) recs.crowd = ["女生"];
+  // 爆款要素：结合标题钩子 + 正文特征
+  const viral = [];
+  if (/\d|一[二三四五六七八九十]/.test(body) && /[条个种方法习惯]/.test(body)) viral.push("数字清单");
+  if (hitWords(body, DICTS.suspense).length) viral.push("悬念钩子");
+  if (hitWords(body, DICTS.warn).length) viral.push("警告劝退");
+  if (hitWords(body, DICTS.emotion).length >= 2) viral.push("情绪共鸣");
+  if (hitWords(body, DICTS.contrast).length >= 2) viral.push("反差结构");
+  if (/普通人|普通女孩|像我这样/.test(body)) viral.push("身份代入");
+  if (/亲测|亲身体验|真实/.test(body)) viral.push("真实感");
+  recs.viral = viral.slice(0, 3);
+  if (!recs.viral.length) recs.viral = ["情绪共鸣"];
+  // 来源状态
+  recs.source = ["竞品拆解", "已拆解"];
+  return { recs, stats };
+}
+
+function bodyAdvice(body, stats, titleAnalysis) {
+  const tips = [];
+  if (stats.chars < 100) tips.push("正文太短（" + stats.chars + "字），少于 100 字很难被系统推荐，建议扩写到 300 字以上");
+  else if (stats.chars < 300) tips.push("正文偏短（" + stats.chars + "字），建议补充细节/案例到 300-800 字的黄金区间");
+  else if (stats.chars > 1000) tips.push("正文偏长（" + stats.chars + "字），完读率会下降，建议精简或分段成系列笔记");
+  else tips.push("✓ 正文字数 " + stats.chars + " 字，处于 300-800 黄金区间");
+  if (stats.paragraphs < 3 && stats.chars > 200) tips.push("段落只有 " + stats.paragraphs + " 段，多空行分段、善用 emoji 小标题，提升可读性");
+  if (stats.emoji === 0) tips.push("正文没有 emoji，适当加 3-6 个可以柔化排版（女性成长向尤其有效）");
+  else if (stats.emoji > 25) tips.push("emoji 过多（" + stats.emoji + "个），点到为止，别喧宾夺主");
+  const firstLine = body.split("\n")[0] || "";
+  if (!hitWords(firstLine, DICTS.emotion).length && !hitWords(firstLine, DICTS.suspense).length && !hasNumber(firstLine)) {
+    tips.push("开头首行没有钩子，前两行决定了读者是否点「展开」，建议首行复用标题的情绪词或抛出痛点");
+  }
+  if (!/[？?]/.test(body)) tips.push("结尾缺少互动引导，加一句提问（如「你们有过这种时刻吗？」）提升评论率");
+  if (stats.hashtags < 3) tips.push("话题标签仅 " + stats.hashtags + " 个，建议文末带 3-5 个相关话题（#女性成长 #自我提升 等）");
+  else if (stats.hashtags > 6) tips.push("话题标签过多（" + stats.hashtags + "个），5 个左右即可，堆砌反而稀释权重");
+  return tips;
+}
+
+/* ============ 工作台状态 ============ */
+const STORE_KEY = "xhs-workbench-v1";
+let library = [];
+try { library = JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); } catch (e) { library = []; }
+function saveLib() { localStorage.setItem(STORE_KEY, JSON.stringify(library)); }
+
+let current = null; // 当前拆解结果
+let editId = null, editTags = null;
+let statusFilterOn = null;
+
+function switchTab(t) {
+  document.getElementById("pageAnalyze").style.display = t === "analyze" ? "block" : "none";
+  document.getElementById("pageLib").style.display = t === "lib" ? "block" : "none";
+  document.getElementById("tabBtnAnalyze").classList.toggle("active", t === "analyze");
+  document.getElementById("tabBtnLib").classList.toggle("active", t === "lib");
+  if (t === "lib") renderLib();
+}
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._tm); t._tm = setTimeout(() => t.classList.remove("show"), 1600);
+}
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+
+/* ===== 手机访问横幅 ===== */
+let IS_CLOUD = false; // 公网版（无本地服务器）标记
+function initCloudDetect() {
+  if (location.protocol === "file:") { IS_CLOUD = true; return; }
+  fetch("/api/ip").then(r => r.json()).then(d => { if (!d.ok) IS_CLOUD = true; }).catch(() => { IS_CLOUD = true; });
+}
+function initPhoneBanner() {
+  const banner = document.getElementById("phoneBanner");
+  if (localStorage.getItem("xhs-phone-banner-off") === "1") return; // 用户手动关过
+  if (location.protocol === "file:") return; // file:// 下无服务器，不显示
+  try {
+    fetch("/api/ip").then(r => r.json()).then(d => {
+      if (!d.ok || !d.urls || !d.urls.length) return;
+      const url = d.urls[0];
+      document.getElementById("phoneUrl").textContent = url;
+      // 二维码（在线接口生成；无网时仅显示地址）
+      const qr = document.getElementById("phoneQr");
+      qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=8&data=" + encodeURIComponent(url);
+      qr.onerror = () => { qr.style.visibility = "hidden"; };
+      banner.style.display = "flex";
+    }).catch(() => {});
+  } catch (e) {}
+}
+function hidePhoneBanner() {
+  document.getElementById("phoneBanner").style.display = "none";
+  localStorage.setItem("xhs-phone-banner-off", "1");
+}
+function copyPhoneUrl(btn) {
+  const txt = document.getElementById("phoneUrl").textContent;
+  const done = () => { btn.textContent = "已复制 ✓"; setTimeout(() => { btn.textContent = "复制"; }, 1500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(done).catch(() => fallbackCopy(txt, done));
+  } else fallbackCopy(txt, done);
+}
+
+function detectPlatform() {
+  const url = document.getElementById("inpUrl").value.trim();
+  const b = document.getElementById("platformBadge");
+  if (/xiaohongshu|xhslink/.test(url)) { b.className = "badge bd-xhs"; b.textContent = "小红书"; }
+  else if (/douyin|iesdouyin/.test(url)) { b.className = "badge bd-dy"; b.textContent = "抖音"; }
+  else { b.className = "badge bd-none"; b.textContent = url ? "其他平台" : "未识别平台"; }
+}
+
+function fillDemo() {
+  document.getElementById("inpUrl").value = "https://www.xiaohongshu.com/explore/demo123";
+  document.getElementById("inpTitle").value = "30岁才明白，女生一定要学会搞钱";
+  document.getElementById("inpBody").value = "毕业后工作了8年，我踩过很多坑，才明白一个道理：女生一定要有搞钱的底气。\n\n1、先存后花，工资到账先转30%进单独账户\n2、发展副业，我靠周末做设计每月多赚3000\n3、停止无效社交，把时间花在提升自己上\n\n以前我也内耗，觉得谈钱俗气。后来才清醒：钱就是普通女孩的安全感。\n\n你们30岁的时候在做什么呢？评论区聊聊 #女性成长 #搞钱 #30岁";
+  detectPlatform();
+  toast("已填充示例，点「开始拆解」试试 🎀");
+}
+
+function resetForm() {
+  document.getElementById("inpUrl").value = "";
+  document.getElementById("inpTitle").value = "";
+  document.getElementById("inpBody").value = "";
+  coverData = null;
+  document.getElementById("coverPreview").style.display = "none";
+  document.getElementById("coverDrop").classList.remove("has-img");
+  document.getElementById("coverFile").value = "";
+  document.getElementById("resultPanel").style.display = "none";
+  document.getElementById("platformBadge").className = "badge bd-none";
+  document.getElementById("platformBadge").textContent = "未识别平台";
+}
+
+function runAnalysis() {
+  const url = document.getElementById("inpUrl").value.trim();
+  const title = document.getElementById("inpTitle").value.trim();
+  const body = document.getElementById("inpBody").value.trim();
+  if (!title && !body) { toast("请至少填写标题或正文～"); return; }
+  if (!title) { toast("标题×封面分析需要标题，请补上标题"); return; }
+
+  const platform = /xiaohongshu|xhslink/.test(url) ? "小红书" : /douyin|iesdouyin/.test(url) ? "抖音" : url ? "其他" : "手动添加";
+  const ta = analyze(title);
+  const ba = body ? analyzeBody(body) : null;
+  current = { url, platform, title, body, titleAnalysis: ta, bodyAnalysis: ba };
+
+  // 标题结果
+  const tags = ['<span class="tag ' + ((ta.len >= 8 && ta.len <= 18) ? "tag-ok" : ta.len <= 20 ? "tag-gray" : "tag-warn") + '">' + ta.len + ' 字</span>'];
+  ta.hooks.forEach(h => tags.push('<span class="tag tag-info">' + (HOOK_NAMES[h] || h) + '</span>'));
+  if (ta.numberHit) tags.push('<span class="tag tag-info">含数字</span>');
+  if (ta.hits.crowd.length) tags.push('<span class="tag tag-info">人群：' + esc(ta.hits.crowd.slice(0, 2).join("/")) + '</span>');
+  if (ta.hits.emotion.length) tags.push('<span class="tag tag-gray">情绪：' + esc(ta.hits.emotion.slice(0, 3).join("/")) + '</span>');
+  if (ta.hits.sensitive.length) tags.push('<span class="tag tag-warn">敏感词：' + esc(ta.hits.sensitive.join("/")) + '</span>');
+  document.getElementById("titleResult").innerHTML =
+    '<div class="row-flex" style="justify-content:space-between"><h4>标题分析</h4><span class="score-badge grade-' + ta.grade.toLowerCase() + '">' + ta.score + ' 分 · ' + ta.grade + '</span></div>' +
+    '<div class="meta-row">' + tags.join("") + '</div>' +
+    '<div class="advice"><b>建议：</b>' + ta.advice.map(esc).join("；") + '</div>';
+
+  // 标题优化示例
+  const vs = genVariants(ta).map(v =>
+    '<div class="variant" data-copy="' + esc(v.text) + '"><span class="v-type">' + v.type + '</span><span class="v-text">' + esc(v.text) + '</span><span class="v-copy">复制</span></div>'
+  ).join("");
+  document.getElementById("variantBox").innerHTML =
+    '<div class="v-note" style="color:#B03A63;font-size:12px;margin-bottom:6px;"><b>优化后标题示例</b>（点击复制）</div>' + vs +
+    '<div class="v-note">模板自动生成，供 A/B 测试参考，发布前建议人工润色</div>';
+
+  // 六维标签
+  const recs = ba ? ba.recs : { topic: [], type: [], emotion: [], crowd: [], viral: [], source: ["已拆解"] };
+  let dimHtml = "";
+  DIMS.forEach(dim => {
+    dimHtml += '<div class="dim-block"><div class="dim-head"><span class="dim-name">' + dim.name + '</span><span class="dim-rule">' + dim.rule + '</span></div><div>';
+    dim.options.forEach(op => {
+      const rec = (recs[dim.key] || []).includes(op);
+      dimHtml += '<span class="chip' + (rec ? ' rec on' : '') + '" data-dim="' + dim.key + '" data-op="' + esc(op) + '" onclick="this.classList.toggle(\'on\')">' + esc(op) + '</span>';
+    });
+    dimHtml += '</div></div>';
+  });
+  document.getElementById("dimBox").innerHTML = dimHtml;
+  document.getElementById("tagRuleTip").textContent = "规则：主题×1 + 类型×1 保底，全篇 3-6 个标签为宜";
+
+  // 正文建议
+  const adviceCard = document.getElementById("bodyAdviceCard");
+  const showAdvice = document.getElementById("optAdvice").checked;
+  if (ba && showAdvice) {
+    adviceCard.style.display = "block";
+    const st = ba.stats;
+    document.getElementById("bodyAdvice").innerHTML =
+      '<div class="meta-row"><span class="tag tag-info">' + st.chars + ' 字</span><span class="tag tag-gray">' + st.paragraphs + ' 段</span><span class="tag tag-gray">emoji ' + st.emoji + ' 个</span><span class="tag tag-gray">话题 ' + st.hashtags + ' 个</span></div>' +
+      '<div class="advice">' + bodyAdvice(body, st, ta).map(esc).join('<br>') + '</div>';
+  } else {
+    adviceCard.style.display = "none";
+  }
+
+  document.getElementById("resultPanel").style.display = "block";
+  document.getElementById("resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/* ============ 素材库 ============ */
+function collectSelectedTags() {
+  const tags = [];
+  document.querySelectorAll("#dimBox .chip.on").forEach(c => {
+    const dim = DIMS.find(d => d.key === c.dataset.dim);
+    tags.push(dim.prefix + c.dataset.op);
+  });
+  return tags;
+}
+
+function saveToLib() {
+  if (!current) return;
+  const tags = collectSelectedTags();
+  if (!tags.some(t => t.startsWith("主题：")) || !tags.some(t => t.startsWith("类型："))) {
+    toast("主题和类型至少各选 1 个哦～"); return;
+  }
+  library.unshift({
+    id: Date.now(),
+    url: current.url, platform: current.platform,
+    title: current.title, body: current.body,
+    cover: coverData ? coverData.dataUrl : null,
+    titleScore: current.titleAnalysis.score,
+    grade: current.titleAnalysis.grade,
+    tags, status: 1, date: new Date().toISOString().slice(0, 10)
+  });
+  saveLib();
+  document.getElementById("libCount").textContent = library.length;
+  toast("已存入素材库 ✓");
+  switchTab("lib");
+}
+
+function toggleStatusFilter(st, el) {
+  if (statusFilterOn === st) { statusFilterOn = null; el.classList.remove("on"); }
+  else {
+    statusFilterOn = st;
+    document.querySelectorAll("#pageLib .filter-bar .chip").forEach(c => c.classList.remove("on"));
+    el.classList.add("on");
+  }
+  renderLib();
+}
+
+function toggleTagFilter(tag, el) {
+  el.classList.toggle("on");
+  renderLib();
+}
+function activeTagFilters() {
+  return Array.from(document.querySelectorAll("#tagFilterBox .chip.on")).map(c => c.dataset.tag);
+}
+
+function renderLib() {
+  document.getElementById("libCount").textContent = library.length;
+  const kw = document.getElementById("searchKw").value.trim().toLowerCase();
+  const tagF = activeTagFilters();
+
+  // 标签筛选面板：展示六维标签体系全量选项（附使用计数）
+  const used = {};
+  library.forEach(m => m.tags.forEach(t => { used[t] = (used[t] || 0) + 1; }));
+  let fh = "";
+  DIMS.forEach(dim => {
+    fh += '<div style="margin-bottom:4px;"><span class="df-label">' + dim.name + '</span>';
+    dim.options.forEach(op => {
+      const t = dim.prefix + op;
+      const n = used[t] || 0;
+      const on = tagF.includes(t) ? " on" : "";
+      fh += '<span class="chip' + on + '" style="margin:0 6px 6px 0;' + (n ? "" : "opacity:.75;") + '" data-tag="' + esc(t) + '" onclick="toggleTagFilter(\'' + esc(t) + '\', this)">' + esc(op) + (n ? '<span style="opacity:.55;font-size:10px;margin-left:3px;">' + n + '</span>' : "") + '</span>';
+    });
+    fh += '</div>';
+  });
+  document.getElementById("tagFilterBox").innerHTML = fh;
+
+  // 过滤
+  let list = library.filter(m => {
+    if (statusFilterOn && STATUS_LIST[m.status] !== statusFilterOn) return false;
+    if (tagF.length && !tagF.every(t => m.tags.includes(t))) return false;
+    if (kw && !((m.title + " " + (m.body || "")).toLowerCase().includes(kw))) return false;
+    return true;
+  });
+
+  document.getElementById("libShown").textContent = list.length;
+  document.getElementById("libEmpty").style.display = list.length ? "none" : "block";
+
+  document.getElementById("matGrid").innerHTML = list.map(m => {
+    const cover = m.cover
+      ? '<img src="' + m.cover + '" alt="">'
+      : '<svg width="52" height="40" viewBox="0 0 52 40"><ellipse cx="10" cy="12" rx="7" ry="9" fill="#FFC9DC"/><ellipse cx="42" cy="12" rx="7" ry="9" fill="#FFC9DC"/><ellipse cx="26" cy="24" rx="19" ry="15" fill="#FFC9DC"/><circle cx="20" cy="22" r="2.2" fill="#B03A63"/><circle cx="32" cy="22" r="2.2" fill="#B03A63"/><path d="M26 28 v3 M26 31 q-4 3 -7 1 M26 31 q4 3 7 1" stroke="#B03A63" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>';
+    const pd = m.platform === "小红书" ? "bd-xhs" : m.platform === "抖音" ? "bd-dy" : "bd-none";
+    const tagChips = m.tags.map(t => '<span class="tag tag-info" style="cursor:default">' + esc(t) + '</span>').join("");
+    const linkBtn = m.url ? ' <button onclick="window.open(\'' + esc(m.url).replace(/'/g, "%27") + '\',\'_blank\')" title="打开原文">🔗</button>' : "";
+    return '<div class="mat-card">' +
+      '<div class="mat-cover">' + cover +
+        '<span class="badge ' + pd + '" style="position:absolute;top:8px;left:8px;">' + esc(m.platform) + '</span>' +
+        (m.titleScore ? '<span class="score-badge grade-' + String(m.grade || "C").toLowerCase() + '" style="position:absolute;top:8px;right:8px;">' + m.titleScore + '</span>' : "") +
+      '</div>' +
+      '<div class="mat-body"><div class="mat-title">' + esc(m.title) + '</div>' +
+      '<div class="meta-row">' + tagChips + '</div>' +
+      '<div class="meta-row"><span class="status-pill st-' + m.status + '" onclick="cycleStatus(' + m.id + ')" title="点击切换状态">' + STATUS_LIST[m.status] + '</span></div></div>' +
+      '<div class="mat-foot"><span class="mat-date">' + esc(m.date) + '</span><span class="mat-actions">' +
+        '<button onclick="openEdit(' + m.id + ')">编辑标签</button>' +
+        '<button onclick="viewDetail(' + m.id + ')">查看</button>' + linkBtn +
+        '<button onclick="delMat(' + m.id + ')" style="color:#D4A9B8">删除</button>' +
+      '</span></div></div>';
+  }).join("");
+}
+
+function cycleStatus(id) {
+  const m = library.find(x => x.id === id);
+  if (!m) return;
+  m.status = (m.status + 1) % 3;
+  saveLib(); renderLib();
+}
+function delMat(id) {
+  const m = library.find(x => x.id === id);
+  if (!m) return;
+  if (confirm("确定删除「" + m.title.slice(0, 20) + "」吗？")) {
+    library = library.filter(x => x.id !== id);
+    saveLib(); renderLib();
+  }
+}
+function viewDetail(id) {
+  const m = library.find(x => x.id === id);
+  if (!m) return;
+  let msg = "【标题】" + m.title + "\n【标签】" + m.tags.join(" / ") + "\n\n";
+  if (m.body) msg += "【正文】\n" + m.body;
+  else msg += "（无正文）";
+  alert(msg);
+}
+
+/* 标签编辑弹窗 */
+function openEdit(id) {
+  const m = library.find(x => x.id === id);
+  if (!m) return;
+  editId = id;
+  editTags = {};
+  let h = "";
+  DIMS.forEach(dim => {
+    const selected = m.tags.filter(t => t.startsWith(dim.prefix)).map(t => t.slice(dim.prefix.length));
+    editTags[dim.key] = selected;
+    h += '<div class="dim-block"><div class="dim-head"><span class="dim-name">' + dim.name + '</span><span class="dim-rule">' + dim.rule + '</span></div><div>';
+    dim.options.forEach(op => {
+      h += '<span class="chip' + (selected.includes(op) ? " on" : "") + '" data-dim="' + dim.key + '" data-op="' + esc(op) + '" onclick="toggleEditChip(this)">' + esc(op) + '</span>';
+    });
+    h += '</div></div>';
+  });
+  document.getElementById("editDimBox").innerHTML = h;
+  document.getElementById("editTitlePreview").textContent = m.title;
+  document.getElementById("editModal").classList.add("show");
+}
+function toggleEditChip(el) {
+  el.classList.toggle("on");
+  const arr = editTags[el.dataset.dim];
+  const op = el.dataset.op;
+  const i = arr.indexOf(op);
+  if (el.classList.contains("on") && i < 0) arr.push(op);
+  if (!el.classList.contains("on") && i >= 0) arr.splice(i, 1);
+}
+function closeEdit() { document.getElementById("editModal").classList.remove("show"); }
+function saveEdit() {
+  const m = library.find(x => x.id === editId);
+  if (!m) return;
+  const tags = [];
+  DIMS.forEach(dim => editTags[dim.key].forEach(op => tags.push(dim.prefix + op)));
+  if (!tags.some(t => t.startsWith("主题：")) || !tags.some(t => t.startsWith("类型："))) {
+    toast("主题和类型至少各选 1 个哦～"); return;
+  }
+  m.tags = tags;
+  saveLib(); closeEdit(); renderLib(); toast("标签已更新 ✓");
+}
+
+/* 导入导出 */
+function exportLib() {
+  if (!library.length) { toast("素材库是空的～"); return; }
+  const blob = new Blob([JSON.stringify(library, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "女性成长素材库_" + new Date().toISOString().slice(0, 10) + ".json";
+  a.click(); URL.revokeObjectURL(a.href);
+}
+function importLib(input) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!Array.isArray(data)) throw 0;
+      const ids = new Set(library.map(m => m.id));
+      let added = 0;
+      data.forEach(m => {
+        if (m && m.title && !ids.has(m.id)) { library.push(m); added++; }
+      });
+      saveLib(); renderLib();
+      toast("导入成功，新增 " + added + " 篇 ✓");
+    } catch (err) { toast("导入失败：文件格式不对"); }
+    input.value = "";
+  };
+  reader.readAsText(file, "UTF-8");
+}
+
+/* 复制事件委托 */
+document.addEventListener("click", e => {
+  const v = e.target.closest(".variant");
+  if (!v) return;
+  const text = v.dataset.copy;
+  const done = () => {
+    const c = v.querySelector(".v-copy"); c.textContent = "已复制✓";
+    setTimeout(() => c.textContent = "复制", 1200);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else fallbackCopy(text, done);
+});
+function fallbackCopy(text, done) {
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); } catch (e) {}
+  ta.remove(); done();
+}
+
+document.getElementById("libCount").textContent = library.length;
+initCloudDetect();
+initPhoneBanner();
+</script>
+</body>
+</html>
