@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>女性成长文案工作台 · 拆解分析 + 素材库</title>
 <!-- PWA：手机添加到桌面 -->
-<link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="/icon-180.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -249,14 +249,18 @@
 
   /* 移动端适配 */
   @media (max-width: 720px) {
-    .layout { flex-direction: column; }
-    .sidebar { width: 100%; height: auto; position: sticky; top: 0; padding: 10px 0; border-right: none; border-bottom: 1.5px solid #F6D6E1; }
-    .sidebar-logo { display: none; }
-    .sidebar-nav { flex-direction: row; overflow-x: auto; padding: 0 8px; gap: 6px; }
-    .nav-item { flex-shrink: 0; padding: 8px 14px; font-size: 13px; }
-    .nav-item .nav-cnt { font-size: 10px; }
+    /* 手机端：侧边栏保持左侧竖排，收窄为图标导航栏 */
+    .layout { flex-direction: row; }
+    .sidebar { width: 68px; padding: 10px 0; }
+    .sidebar-logo { margin-bottom: 10px; padding: 0 4px; }
+    .sidebar-logo .kitty-sm { margin: 0 auto 2px; transform: scale(.8); transform-origin: center; }
+    .sidebar-logo h2, .sidebar-logo p { display: none; }
+    .sidebar-nav { padding: 0 5px; gap: 4px; }
+    .nav-item { flex-direction: column; justify-content: center; gap: 3px; padding: 9px 2px; font-size: 10.5px; text-align: center; }
+    .nav-item .nav-icon { font-size: 17px; }
+    .nav-item .nav-cnt { display: none; }
     .sidebar-foot { display: none; }
-    .main { padding: 14px 12px 90px; }
+    .main { padding: 14px 10px 90px; }
     .cover-box { flex-direction: column; }
     .cover-box .cover-drop, .cover-box .cover-drop img { width: 100%; }
     #phoneBanner { flex-direction: column; align-items: flex-start; }
