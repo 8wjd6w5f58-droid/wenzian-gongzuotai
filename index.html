@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>女性成长文案工作台 · 拆解分析 + 素材库</title>
 <!-- PWA：手机添加到桌面 -->
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-180.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -24,6 +24,31 @@
     min-height: 100vh;
   }
   .container { max-width: 1060px; margin: 0 auto; padding: 24px 16px 70px; }
+
+  /* ===== 侧边栏布局 ===== */
+  .layout { display: flex; min-height: 100vh; }
+  .sidebar {
+    width: 200px; flex-shrink: 0; background: #fff; border-right: 1.5px solid #F6D6E1;
+    padding: 20px 0; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+    display: flex; flex-direction: column; z-index: 10;
+  }
+  .sidebar-logo { text-align: center; margin-bottom: 18px; padding: 0 12px; }
+  .sidebar-logo .kitty-sm { display: block; margin: 0 auto 4px; }
+  .sidebar-logo h2 { font-size: 14px; font-weight: 700; color: #B03A63; line-height: 1.3; }
+  .sidebar-logo p { font-size: 10px; color: #D4A9B8; margin-top: 2px; }
+  .sidebar-nav { display: flex; flex-direction: column; gap: 4px; padding: 0 10px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px; padding: 11px 14px;
+    border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600;
+    color: #8A5568; transition: all .18s; border: 1.5px solid transparent;
+  }
+  .nav-item:hover { background: #FFE9F1; color: #B03A63; }
+  .nav-item.active { background: linear-gradient(135deg, #F06292, #E8467C); color: #fff; border-color: #E8467C; box-shadow: 0 4px 12px rgba(232,70,124,.2); }
+  .nav-item .nav-icon { font-size: 18px; flex-shrink: 0; }
+  .nav-item .nav-cnt { margin-left: auto; background: #FFE9F1; color: #E8467C; border-radius: 999px; font-size: 11px; padding: 0 7px; line-height: 1.7; }
+  .nav-item.active .nav-cnt { background: rgba(255,255,255,.3); color: #fff; }
+  .sidebar-foot { margin-top: auto; padding: 12px 14px; font-size: 11px; color: #D4A9B8; }
+  .main { flex: 1; min-width: 0; padding: 24px 20px 70px; max-width: 860px; }
 
   /* ===== 头部 Hello Kitty ===== */
   header { text-align: center; margin-bottom: 18px; position: relative; }
@@ -120,16 +145,73 @@
   .dim-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
   .dim-name { font-size: 13px; font-weight: 700; color: #B03A63; }
   .dim-rule { font-size: 11px; color: #D4A9B8; }
-  .chip { display: inline-block; border: 1.5px solid #F0C4D4; background: #fff; color: #8A5568; border-radius: 999px; padding: 3px 13px; font-size: 12.5px; margin: 0 6px 6px 0; cursor: pointer; transition: all .15s; user-select: none; }
+  .chip { display: inline-block; position: relative; border: 1.5px solid #F0C4D4; background: #fff; color: #8A5568; border-radius: 999px; padding: 3px 13px; font-size: 12.5px; margin: 0 6px 6px 0; cursor: pointer; transition: all .15s; user-select: none; }
   .chip:hover { border-color: #F06292; color: #C2185B; }
   .chip.on { background: linear-gradient(135deg, #F06292, #E8467C); color: #fff; border-color: #E8467C; }
   .chip.rec::after { content: "荐"; font-size: 10px; background: #FFD54F; color: #7A5A00; border-radius: 999px; padding: 0 4px; margin-left: 4px; vertical-align: 1px; }
+  .dim-subgroup { display: inline-block; font-size: 11px; font-weight: 600; color: #D4A9B8; margin: 4px 10px 4px 0; vertical-align: middle; white-space: nowrap; }
+  .dim-group-row { margin-bottom: 4px; }
+  .chip-add { border-style: dashed; color: #C48AA0; background: transparent; font-size: 12px; }
+  .chip-add:hover { border-color: #F06292; color: #F06292; background: #FFE9F1; }
+  .chip-del { display: none; position: absolute; top: -4px; right: -4px; width: 15px; height: 15px; line-height: 14px; text-align: center; background: #F06292; color: #fff; border-radius: 50%; font-size: 11px; font-style: normal; cursor: pointer; z-index: 5; }
+  .chip:hover .chip-del { display: inline-block; }
+  .chip-del:hover { background: #D81B60; transform: scale(1.15); }
+
+  /* 四版块拆解分析 */
+  .analysis-desc { font-size: 13px; color: #6B4A57; margin-bottom: 8px; line-height: 1.7; }
+  .analysis-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .analysis-tag { font-size: 12.5px; padding: 3px 12px; border-radius: 999px; background: #FFECF0; color: #C2185B; border: 1px solid #F7C1D2; }
+  .analysis-reason { font-size: 12px; color: #8A5568; margin-top: 4px; padding-left: 12px; border-left: 2px solid #F3BFD1; line-height: 1.6; }
+  .benefit-list { display: flex; flex-direction: column; gap: 8px; }
+  .benefit-item { display: flex; align-items: flex-start; gap: 10px; background: #FFF7FA; border: 1px solid #FBE2EB; border-radius: 10px; padding: 10px 14px; }
+  .benefit-icon { flex-shrink: 0; width: 26px; height: 26px; line-height: 26px; text-align: center; background: linear-gradient(135deg, #F06292, #E8467C); color: #fff; border-radius: 50%; font-size: 13px; }
+  .benefit-content { flex: 1; }
+  .benefit-label { font-weight: 700; color: #B03A63; font-size: 13px; }
+  .benefit-detail { font-size: 12px; color: #6B4A57; margin-top: 2px; }
+  .analysis-empty { color: #D4A9B8; font-size: 13px; text-align: center; padding: 16px 0; }
+
+  /* 趋势板块 */
+  .trend-week-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .trend-week-bar input[type=text] { width: auto; min-width: 120px; }
+  .week-card { background: #fff; border: 1px solid #F6D6E1; border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(232,70,124,.05); }
+  .week-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+  .week-card-title { font-size: 16px; font-weight: 700; color: #B03A63; }
+  .week-card-meta { font-size: 12px; color: #D4A9B8; }
+  .week-section { margin-bottom: 14px; }
+  .week-section:last-child { margin-bottom: 0; }
+  .week-section-title { font-size: 14px; font-weight: 700; color: #8A5568; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .topic-row { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px dashed #FBE2EB; }
+  .topic-row:last-child { border-bottom: none; }
+  .topic-rank { flex-shrink: 0; width: 22px; height: 22px; line-height: 22px; text-align: center; background: linear-gradient(135deg, #F06292, #E8467C); color: #fff; border-radius: 50%; font-size: 12px; font-weight: 700; }
+  .topic-content { flex: 1; }
+  .topic-name { font-size: 13px; font-weight: 600; color: #5C3345; }
+  .topic-desc { font-size: 12px; color: #8A5568; margin-top: 2px; line-height: 1.5; }
+  .pain-row { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; }
+  .pain-dot { flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%; background: #F06292; margin-top: 6px; }
+  .pain-text { font-size: 13px; color: #5C3345; line-height: 1.5; }
+  .trend-empty { text-align: center; color: #D4A9B8; font-size: 13px; padding: 24px 0; }
+  .trend-form-row { margin-bottom: 10px; }
+  .trend-form-row label { display: block; font-size: 13px; font-weight: 600; color: #8A5568; margin-bottom: 4px; }
+  .trend-form-row textarea { min-height: 60px; }
+  .trend-topic-input { display: flex; gap: 6px; margin-bottom: 6px; }
+  .trend-topic-input input { flex: 1; }
+  .trend-topic-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .trend-topic-tag { font-size: 12px; padding: 3px 10px; border-radius: 999px; background: #FFECF0; color: #C2185B; border: 1px solid #F7C1D2; display: flex; align-items: center; gap: 4px; }
+  .trend-topic-tag .rm { cursor: pointer; opacity: .6; }
+  .trend-topic-tag .rm:hover { opacity: 1; color: #D81B60; }
 
   /* 素材库 */
   .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 6px; }
   .filter-bar input[type=text] { width: 220px; }
   .dim-filter { margin: 8px 0 2px; }
   .dim-filter .df-label { font-size: 12px; color: #C48AA0; margin-right: 6px; }
+  /* 筛选维度大标题 */
+  .filter-dim { border: 1px solid #F6D6E1; border-radius: 12px; margin-bottom: 10px; overflow: hidden; background: #FFFBFC; }
+  .filter-dim-head { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: linear-gradient(135deg, #FFF0F5, #FFE0EB); border-bottom: 1px solid #F6D6E1; }
+  .filter-dim-name { font-size: 15px; font-weight: 800; color: #B03A63; }
+  .filter-dim-rule { font-size: 11px; color: #D4A9B8; margin-left: auto; }
+  .filter-dim-body { padding: 10px 12px; }
+  .filter-dim-body .chip { font-size: 12.5px; }
   .mat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 12px; }
   .mat-card { background: #fff; border: 1px solid #F6D6E1; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: all .18s; }
   .mat-card:hover { box-shadow: 0 6px 18px rgba(232,70,124,.12); transform: translateY(-2px); }
@@ -167,39 +249,62 @@
 
   /* 移动端适配 */
   @media (max-width: 720px) {
-    .container { padding: 16px 12px 90px; }
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: sticky; top: 0; padding: 10px 0; border-right: none; border-bottom: 1.5px solid #F6D6E1; }
+    .sidebar-logo { display: none; }
+    .sidebar-nav { flex-direction: row; overflow-x: auto; padding: 0 8px; gap: 6px; }
+    .nav-item { flex-shrink: 0; padding: 8px 14px; font-size: 13px; }
+    .nav-item .nav-cnt { font-size: 10px; }
+    .sidebar-foot { display: none; }
+    .main { padding: 14px 12px 90px; }
     .cover-box { flex-direction: column; }
     .cover-box .cover-drop, .cover-box .cover-drop img { width: 100%; }
-    .tab-btn { padding: 8px 18px; font-size: 13px; }
-    header h1 { font-size: 19px; }
     #phoneBanner { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="layout">
 
-  <header>
-    <svg class="kitty" width="86" height="62" viewBox="0 0 86 62" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="17" cy="20" rx="12" ry="14" fill="#fff" stroke="#3A3A3A" stroke-width="2" transform="rotate(-18 17 20)"/>
-      <ellipse cx="69" cy="20" rx="12" ry="14" fill="#fff" stroke="#3A3A3A" stroke-width="2" transform="rotate(18 69 20)"/>
-      <ellipse cx="43" cy="36" rx="30" ry="24" fill="#fff" stroke="#3A3A3A" stroke-width="2"/>
-      <ellipse cx="34" cy="34" rx="3.4" ry="4.6" fill="#3A3A3A"/>
-      <ellipse cx="52" cy="34" rx="3.4" ry="4.6" fill="#3A3A3A"/>
-      <ellipse cx="43" cy="43" rx="3.2" ry="2.4" fill="#F2B33D"/>
-      <path d="M43 45 v4 M43 49 q-5 4 -9 1 M43 49 q5 4 9 1" stroke="#3A3A3A" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-      <line x1="8" y1="36" x2="22" y2="38" stroke="#3A3A3A" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="8" y1="43" x2="22" y2="42" stroke="#3A3A3A" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="64" y1="38" x2="78" y2="36" stroke="#3A3A3A" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="64" y1="42" x2="78" y2="43" stroke="#3A3A3A" stroke-width="1.6" stroke-linecap="round"/>
-      <g transform="translate(24,8)">
-        <path d="M14 10 q-2 -12 8 -9 q4 -8 10 -1 q6 -3 5 5 q6 3 -2 8 q-8 4 -21 -3z" fill="#F0436B" stroke="#C2185B" stroke-width="1.4"/>
-        <circle cx="13" cy="8" r="2.6" fill="#FF8FAE"/>
-      </g>
-    </svg>
-    <h1>女性成长文案工作台</h1>
-    <p>链接自动读取 · 标题打分优化 · 六维标签 · 素材库 | 数据保存在本地浏览器</p>
-  </header>
+  <!-- ===== 侧边栏 ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg class="kitty-sm" width="52" height="38" viewBox="0 0 86 62" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="17" cy="20" rx="12" ry="14" fill="#fff" stroke="#3A3A3A" stroke-width="2" transform="rotate(-18 17 20)"/>
+        <ellipse cx="69" cy="20" rx="12" ry="14" fill="#fff" stroke="#3A3A3A" stroke-width="2" transform="rotate(18 69 20)"/>
+        <ellipse cx="43" cy="36" rx="30" ry="24" fill="#fff" stroke="#3A3A3A" stroke-width="2"/>
+        <ellipse cx="34" cy="34" rx="3.4" ry="4.6" fill="#3A3A3A"/>
+        <ellipse cx="52" cy="34" rx="3.4" ry="4.6" fill="#3A3A3A"/>
+        <ellipse cx="43" cy="43" rx="3.2" ry="2.4" fill="#F2B33D"/>
+        <path d="M43 45 v4 M43 49 q-5 4 -9 1 M43 49 q5 4 9 1" stroke="#3A3A3A" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <g transform="translate(24,8)">
+          <path d="M14 10 q-2 -12 8 -9 q4 -8 10 -1 q6 -3 5 5 q6 3 -2 8 q-8 4 -21 -3z" fill="#F0436B" stroke="#C2185B" stroke-width="1.4"/>
+          <circle cx="13" cy="8" r="2.6" fill="#FF8FAE"/>
+        </g>
+      </svg>
+      <h2>女性成长<br>文案工作台</h2>
+      <p>数据本地存储</p>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" id="navAnalyze" onclick="switchTab('analyze')">
+        <span class="nav-icon">🎀</span><span>拆解分析</span>
+      </div>
+      <div class="nav-item" id="navLib" onclick="switchTab('lib')">
+        <span class="nav-icon">📚</span><span>素材库</span>
+        <span class="nav-cnt" id="libCount">0</span>
+      </div>
+      <div class="nav-item" id="navDyTrend" onclick="switchTab('dyTrend')">
+        <span class="nav-icon">📊</span><span>抖音趋势</span>
+      </div>
+      <div class="nav-item" id="navXhsTrend" onclick="switchTab('xhsTrend')">
+        <span class="nav-icon">📕</span><span>小红书趋势</span>
+      </div>
+    </nav>
+    <div class="sidebar-foot">v1.0 · 本地浏览器存储</div>
+  </aside>
+
+  <!-- ===== 主内容区 ===== -->
+  <main class="main">
 
   <div id="phoneBanner" style="display:none">
     <div style="flex:1;min-width:200px">
@@ -215,11 +320,6 @@
       <div class="hint" style="margin-top:2px;">扫码直达</div>
     </div>
     <span class="banner-close" onclick="hidePhoneBanner()" title="关闭">✕</span>
-  </div>
-
-  <div class="tabs">
-    <button class="tab-btn active" id="tabBtnAnalyze" onclick="switchTab('analyze')">🎀 拆解分析</button>
-    <button class="tab-btn" id="tabBtnLib" onclick="switchTab('lib')">📚 素材库 <span class="cnt" id="libCount">0</span></button>
   </div>
 
   <!-- ===================== 拆解分析 ===================== -->
@@ -250,8 +350,8 @@
           </div>
         </div>
         <div style="flex:1">
-          <textarea id="inpBody" rows="9" placeholder="粘贴正文内容到这里（用于六维标签拆解）……"></textarea>
-          <div class="hint" style="margin-top:6px;">正文粘贴后自动生成六维标签推荐</div>
+          <textarea id="inpBody" rows="9" placeholder="粘贴正文内容到这里（用于拆解分析）……"></textarea>
+          <div class="hint" style="margin-top:6px;">正文粘贴后自动生成四维拆解分析</div>
         </div>
       </div>
       <input type="file" id="coverFile" accept="image/*" style="display:none" onchange="loadCover(this)">
@@ -274,18 +374,33 @@
       <div class="variants" id="variantBox"></div>
     </div>
 
-      <div class="card">
-        <h3>🏷️ 正文六维标签拆解 <span class="sub">第 3 步：确认标签（点击切换选中，标「荐」为自动推荐）</span></h3>
-        <div id="dimBox"></div>
-        <div class="row-flex" style="justify-content:flex-end; margin-top:6px;">
-          <span class="hint" id="tagRuleTip" style="margin-right:auto;"></span>
-          <button class="btn btn-main" onclick="saveToLib()">💾 存入素材库</button>
-        </div>
+      <div class="card" id="cardAudience">
+        <h3>🎯 目标受众 <span class="sub">这篇文章写给谁看的？</span></h3>
+        <div id="analysisAudience"></div>
+      </div>
+
+      <div class="card" id="cardTopic">
+        <h3>📌 主题 <span class="sub">这篇文章在讲什么？</span></h3>
+        <div id="analysisTopic"></div>
+      </div>
+
+      <div class="card" id="cardViral">
+        <h3>🔥 爆款要素 <span class="sub">为什么这篇能火？</span></h3>
+        <div id="analysisViral"></div>
+      </div>
+
+      <div class="card" id="cardBenefit">
+        <h3>✨ 受众看完的收益 <span class="sub">读者能获得什么？</span></h3>
+        <div id="analysisBenefit"></div>
       </div>
 
       <div class="card" id="bodyAdviceCard" style="display:none">
         <h3>💡 正文优化建议</h3>
         <div id="bodyAdvice"></div>
+      </div>
+
+      <div class="row-flex" style="justify-content:flex-end; margin-top:6px;">
+        <button class="btn btn-main" onclick="saveToLib()">💾 存入素材库</button>
       </div>
     </div>
   </div>
@@ -295,7 +410,8 @@
     <div class="card">
       <h3>🔎 筛选 <span class="sub">点击标签即筛选，再点取消</span></h3>
       <div class="filter-bar">
-        <input type="text" id="searchKw" placeholder="搜索标题 / 正文关键词…" oninput="renderLib()">
+        <input type="text" id="searchKw" placeholder="搜索标题 / 正文关键词…" style="flex:1;min-width:160px;max-width:300px;" oninput="renderLib()" onkeydown="if(event.key==='Enter')renderLib()">
+        <button class="btn btn-light" onclick="renderLib()" style="padding:8px 16px;">🔍 搜索</button>
         <span class="hint" style="margin:0;">状态：</span>
         <span class="chip" onclick="toggleStatusFilter('待拆解', this)">待拆解</span>
         <span class="chip" onclick="toggleStatusFilter('已拆解', this)">已拆解</span>
@@ -315,6 +431,34 @@
     <div class="mat-grid" id="matGrid"></div>
     <div class="empty" id="libEmpty">素材库还是空的～去「拆解分析」导入第一篇文章吧 🎀</div>
   </div>
+
+  <!-- ===================== 抖音趋势 ===================== -->
+  <div id="pageDyTrend" style="display:none">
+    <div class="card">
+      <h3>📊 抖音趋势 · 女性成长赛道 <span class="sub">按周记录话题与痛点变化</span></h3>
+      <div class="trend-week-bar">
+        <button class="btn btn-main" onclick="openTrendForm('dy')">➕ 新增周报</button>
+        <span class="hint" style="margin:0;">记录每周观察到的热门话题和用户痛点</span>
+      </div>
+    </div>
+    <div id="dyTrendList"></div>
+    <div class="empty" id="dyTrendEmpty">还没有抖音趋势记录～点击「新增周报」开始 📊</div>
+  </div>
+
+  <!-- ===================== 小红书趋势 ===================== -->
+  <div id="pageXhsTrend" style="display:none">
+    <div class="card">
+      <h3>📕 小红书趋势 · 女性成长赛道 <span class="sub">按周记录话题与痛点变化</span></h3>
+      <div class="trend-week-bar">
+        <button class="btn btn-main" onclick="openTrendForm('xhs')">➕ 新增周报</button>
+        <span class="hint" style="margin:0;">记录每周观察到的热门话题和用户痛点</span>
+      </div>
+    </div>
+    <div id="xhsTrendList"></div>
+    <div class="empty" id="xhsTrendEmpty">还没有小红书趋势记录～点击「新增周报」开始 📕</div>
+  </div>
+
+  </main>
 </div>
 
 <!-- 标签编辑弹窗 -->
@@ -330,12 +474,66 @@
   </div>
 </div>
 
+<!-- 存入素材库标签确认弹窗 -->
+<div class="modal-mask" id="saveTagModal">
+  <div class="modal">
+    <h3>🏷️ 六维标签确认</h3>
+    <div class="m-title-preview" id="saveTagTitlePreview"></div>
+    <p style="font-size:12px;color:#C48AA0;margin-bottom:10px;">已根据正文自动推荐标签（标「荐」），点击可调整</p>
+    <div id="saveTagDimBox"></div>
+    <div class="modal-foot">
+      <button class="btn btn-light" onclick="closeSaveTag()">取消</button>
+      <button class="btn btn-main" onclick="confirmSaveToLib()">确认存入</button>
+    </div>
+  </div>
+</div>
+
+<!-- 添加标签弹窗（替代 prompt） -->
+<div class="modal-mask" id="addTagModal">
+  <div class="modal" style="max-width:380px;">
+    <h3>➕ 添加标签</h3>
+    <p style="font-size:13px;color:#8A5568;margin-bottom:10px;" id="addTagDimName">维度</p>
+    <input type="text" id="addTagInput" class="input" placeholder="输入标签名…" style="width:100%;margin-bottom:12px;" onkeydown="if(event.key==='Enter')confirmAddCustomTag()">
+    <div class="modal-foot">
+      <button class="btn btn-light" onclick="closeAddTagModal()">取消</button>
+      <button class="btn btn-main" onclick="confirmAddCustomTag()">添加</button>
+    </div>
+  </div>
+</div>
+
+<!-- 趋势周报编辑弹窗 -->
+<div class="modal-mask" id="trendModal">
+  <div class="modal">
+    <h3 id="trendModalTitle">➕ 新增周报</h3>
+    <div class="trend-form-row">
+      <label>周报标题（如：W34 · 8月第3周）</label>
+      <input type="text" id="trendWeekLabel" placeholder="如：W34 · 8月第3周">
+    </div>
+    <div class="trend-form-row">
+      <label>🔥 热门话题（每行一个：话题名 - 简述）</label>
+      <textarea id="trendTopics" rows="5" placeholder="搞钱女孩 - 「女生搞钱」相关视频播放量周环比增长40%&#10;裸辞gap - 裸辞vlog持续走高，评论区焦虑与向往并存&#10;30岁焦虑 - 30+女性话题讨论量激增"></textarea>
+    </div>
+    <div class="trend-form-row">
+      <label>💔 用户痛点（每行一个）</label>
+      <textarea id="trendPains" rows="5" placeholder="搞钱方向迷茫，不知道从哪入手&#10;裸辞后经济压力焦虑&#10;职场年龄焦虑加剧"></textarea>
+    </div>
+    <div class="trend-form-row">
+      <label>📝 总结与洞察</label>
+      <textarea id="trendSummary" rows="3" placeholder="本周搞钱话题持续走高，裸辞内容从「向往」转向「实操」，用户更关注可落地的副业方向…"></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-light" onclick="closeTrendModal()">取消</button>
+      <button class="btn btn-main" onclick="saveTrend()">保存周报</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 /* ============ 字典与分析引擎（与标题分析器同源） ============ */
 const DICTS = {
-  emotion: ["清醒","逆袭","破防","扎心","治愈","焦虑","内耗","上瘾","停止","戒掉","狠狠","偷偷","疯狂","后悔","遗憾","温柔","勇敢","自愈","松弛","拧巴","救命","委屈","心酸","爽","心动","沉住气","狠劲","底气","emo","迷茫","焦虑","快乐","安全感","成就感"],
+  emotion: ["治愈","温暖","激励","加油","丧","低谷","崩溃","破防","扎心","共鸣","松弛","平静","羡慕","向往","温柔","坚定","焦虑","内耗","上瘾","停止","戒掉","狠狠","偷偷","疯狂","后悔","遗憾","勇敢","自愈","拧巴","救命","委屈","心酸","爽","心动","沉住气","狠劲","底气","emo","迷茫","快乐","安全感","成就感"],
   crowd: ["女生","女人","姐妹","宝妈","打工人","学生党","大学生","30岁","25岁","35岁","40岁","职场","普通女孩","i人","e人","独居","单身","女大学生","姐姐","妹妹","职场新人","毕业生","内向者","裸辞","辞职","gap","自由职业","考研","考公","体制内","留学生","全职妈妈","北漂","沪漂","深漂","社恐","高敏感","小镇做题家"],
   suspense: ["真相","其实","秘密","原因","为什么","背后","内幕","潜规则","才知道","没人告诉你","建议收藏","必看","看懂","悟了","觉醒"],
   warn: ["别再","千万","不要","停止","戒掉","趁早","晚了就","求你","警惕","远离"],
@@ -344,6 +542,15 @@ const DICTS = {
   sensitive: ["最低","最好","第一名","绝对","百分百","100%","免费送","点击链接","私信我","加v","加V","微信","转账","兼职","躺赚","暴富"]
 };
 const HOOK_NAMES = { suspense: "悬念钩子", warn: "警告劝退", contrast: "反差结构", question: "提问互动", number: "数字清单" };
+const EMOTION_MAP = {
+  "治愈温暖": ["治愈","温暖","暖","安心","幸福","甜","被爱","温柔","贴心","暖心","被治愈"],
+  "激励打气": ["激励","加油","冲","你可以","相信","力量","坚持","别放弃","冲鸭","干就完了","站起来"],
+  "丧后反转": ["丧","低谷","崩溃","破防","后来","直到","终于","熬过","涅槃","触底反弹","但是后来"],
+  "温柔坚定": ["坚定","不妥协","底线","从容","温柔而坚定","不将就","自己的节奏","有自己的想法"],
+  "扎心共鸣": ["扎心","共鸣","说的就是我","感同身受","真实","太对了","句句戳心","破防了"],
+  "松弛平静": ["松弛","平静","放空","慢下来","心安","宁静","自在","不急","慢慢来","佛系"],
+  "羡慕向往": ["羡慕","向往","好想","要是能","如果能","好希望","理想","向往的生活","好想过"]
+};
 
 function hitWords(t, dict) { return dict.filter(w => t.includes(w)); }
 function countLen(t) { return t.replace(/\s/g, "").length; }
@@ -363,7 +570,7 @@ function analyze(title) {
   if (numberHit) score += 10; else advice.push("可加入具体数字（如「3个习惯」「30岁」）提升点击率");
   if (hits.crowd.length) score += 10; else advice.push("可加入人群词（如「女生」「30+」「打工人」）增强代入感");
   if (hits.emotion.length) score += Math.min(15, hits.emotion.length * 6);
-  else advice.push("缺少情绪词，加一个（如「内耗」「清醒」「破防」）让标题更有张力");
+  else advice.push("缺少情绪词，加一个（如「治愈」「扎心」「松弛」）让标题更有张力");
   const hooks = [];
   if (hits.suspense.length) hooks.push("suspense");
   if (hits.warn.length) hooks.push("warn");
@@ -447,10 +654,6 @@ function loadCover(input) {
 async function fetchArticle() {
   const url = document.getElementById("inpUrl").value.trim();
   if (!url) { toast("先粘贴链接～"); return; }
-  if (IS_CLOUD) {
-    alert("当前是「公网版」，没有本地抓取服务：\n\n小红书 / 抖音有登录墙和跨域限制，公网版无法自动读取链接内容。\n请手动把标题、正文粘贴到下方，首图手动上传。\n\n（需要一键自动读取时，请在电脑上运行：node 工作台服务器.js，然后访问 http://localhost:8787）");
-    return;
-  }
   if (location.protocol === "file:") {
     alert("自动读取需要启动本地小助手服务器：\n\n1. 打开命令行，进入本文件所在文件夹\n2. 运行：node 工作台服务器.js\n3. 浏览器打开 http://localhost:8787\n\n原因：小红书 / 抖音有登录墙和跨域限制，网页无法直接抓取，需要本地服务器代理请求。抓不到的内容仍可手动粘贴。");
     return;
@@ -480,28 +683,98 @@ async function loadCoverFromUrl(u) {
 
 /* ============ 六维标签体系 ============ */
 const DIMS = [
-  { key: "topic", name: "主题", prefix: "主题：", rule: "至少选 1 个", multi: true, options: ["搞钱存钱","职场成长","自我提升","情绪管理","人际关系","恋爱婚姻","外貌变美","健康作息","学习方法","消费观","独居生活","女性议题"] },
-  { key: "type", name: "类型", prefix: "类型：", rule: "至少选 1 个", multi: true, options: ["干货清单","经验复盘","故事叙事","观点输出","教程攻略","好物合集","情绪树洞","案例拆解"] },
-  { key: "emotion", name: "情绪", prefix: "情绪：", rule: "选 1-3 个", multi: true, options: ["清醒","治愈","扎心","逆袭","焦虑","内耗","破防","松弛","勇敢","温柔","心动","心酸","底气","爽感","共情"] },
+  { key: "topic", name: "主题", prefix: "主题：", rule: "至少选 1 个", multi: true, options: ["财富挣钱","事业职场","自我提升","情绪管理","人际关系","恋爱婚姻","外貌变美","健康作息","学习方法","消费观","生活方式","女性议题","人生阶段"] },
+  { key: "type", name: "类型", prefix: "类型：", rule: "至少选 1 个", multi: true, options: ["干货清单","经历复盘","故事叙事","观点输出","教程攻略","好物合集","情绪树洞","案例拆解","书摘 / 影视频"] },
+  { key: "emotion", name: "情绪", prefix: "情绪：", rule: "选 1-3 个", multi: true, options: ["治愈温暖","激励打气","丧后反转","温柔坚定","扎心共鸣","松弛平静","羡慕向往"] },
   { key: "crowd", name: "人群场景", prefix: "人群：", rule: "选 1-3 个", multi: true, options: ["女生","30+","学生党","女大学生","打工人","职场新人","中层管理","裸辞","gap期","自由职业","考研党","考公人","留学生","北漂沪漂","小镇做题家","宝妈","全职妈妈","中年女性","独居","单身","i人","社恐","高敏感","普通女孩","姐姐妹妹"] },
   { key: "viral", name: "爆款要素", prefix: "爆款：", rule: "选 1-3 个", multi: true, options: ["数字清单","悬念钩子","警告劝退","反差结构","提问互动","情绪共鸣","身份代入","稀缺干货","真实感"] },
   { key: "source", name: "来源状态", prefix: "来源：", rule: "选 1-2 个", multi: true, options: ["竞品拆解","灵感收集","原创草稿","已拆解"] }
 ];
 const TOPIC_KEYS = {
-  "搞钱存钱": ["搞钱","存钱","副业","理财","收入","工资","攒钱","消费降级","开源","金钱"],
-  "职场成长": ["职场","工作","领导","同事","跳槽","升职","面试","上班","离职","office"],
-  "自我提升": ["自律","成长","提升","习惯","改变","坚持","认知","阅读","思维"],
-  "情绪管理": ["情绪","内耗","焦虑","崩溃","治愈","心态","和解","放过自己","精神内耗"],
-  "人际关系": ["朋友","社交","断舍离","圈子","讨好","边界","亲戚","人脉"],
-  "恋爱婚姻": ["恋爱","男朋友","婚姻","结婚","分手","老公","相亲","伴侣","另一半","crush"],
-  "外貌变美": ["变美","护肤","化妆","穿搭","减肥","身材","皮肤","变瘦","变白","审美"],
-  "健康作息": ["熬夜","早睡","作息","运动","健身","养生","睡眠","饮食"],
-  "学习方法": ["学习","笔记","考证","考研","效率","专注","复习","上岸"],
-  "消费观": ["消费","买","剁手","平替","性价比","智商税","花钱","囤货"],
-  "独居生活": ["独居","一个人","租房","一人食","孤独","生活仪式感"],
-  "女性议题": ["女性","性别","重男轻女","独立","婚姻观","生育","姐姐","她力量"]
+  "财富挣钱": ["搞钱","存钱","副业","理财","收入","工资","攒钱","消费降级","开源","金钱","赚钱","财富","财务自由","搞副业"],
+  "事业职场": ["职场","工作","领导","同事","跳槽","升职","面试","上班","离职","office","事业","职业规划","打工"],
+  "自我提升": ["自律","成长","提升","习惯","改变","坚持","认知","思维","读书","复盘"],
+  "情绪管理": ["情绪","内耗","焦虑","崩溃","治愈","心态","和解","放过自己","精神内耗","情绪价值"],
+  "人际关系": ["朋友","社交","断舍离","圈子","讨好","边界","亲戚","人脉","合群"],
+  "恋爱婚姻": ["恋爱","男朋友","婚姻","结婚","分手","老公","相亲","伴侣","另一半","crush","脱单"],
+  "外貌变美": ["变美","护肤","化妆","穿搭","减肥","身材","皮肤","变瘦","变白","审美","发型"],
+  "健康作息": ["熬夜","早睡","作息","运动","健身","养生","睡眠","饮食","跑步","瑜伽"],
+  "学习方法": ["学习","笔记","考证","考研","效率","专注","复习","上岸","时间管理"],
+  "消费观": ["消费","买","剁手","平替","性价比","智商税","花钱","囤货","极简","断舍离消费"],
+  "生活方式": ["独居","一个人","租房","一人食","独处","松弛感","旅行","阅读","仪式感","生活审美","生活","慢生活","生活仪式感"],
+  "女性议题": ["女性","性别","重男轻女","独立","婚姻观","生育","姐姐","她力量","女性力量","女孩"],
+  "人生阶段": ["20岁","25岁","30岁","35岁","40岁","低谷","转折","重新开始","人生","阶段","迷茫期","低谷期","转折期","人生下半场","中年危机"]
 };
 const STATUS_LIST = ["待拆解", "已拆解", "已使用"];
+
+/* 人群正则映射（模块级，供 analyzeBody 和四维分析共用） */
+const CROWD_MAP = [
+  [/裸辞|辞职/, "裸辞"],
+  [/\bgap\b|间隔年|gap期/i, "gap期"],
+  [/自由职业|soho|数字游民/i, "自由职业"],
+  [/小镇做题家/, "小镇做题家"],
+  [/考研|研究生/, "考研党"],
+  [/考公|公务员|体制内|编制/, "考公人"],
+  [/留学|留学生/, "留学生"],
+  [/北漂|沪漂|深漂|杭漂/, "北漂沪漂"],
+  [/全职妈妈|全职太太/, "全职妈妈"],
+  [/宝妈|当妈|妈妈们/, "宝妈"],
+  [/职场新人|毕业生|应届|初入职场/, "职场新人"],
+  [/管理层|中层|带团队/, "中层管理"],
+  [/中年|40岁|45岁/, "中年女性"],
+  [/30岁|31岁|32岁|33岁|35岁/, "30+"],
+  [/大学生|学生党|在校/, "学生党"],
+  [/打工人|上班|工位|通勤/, "打工人"],
+  [/社恐/, "社恐"],
+  [/高敏感/, "高敏感"],
+  [/普通女孩|普通人/, "普通女孩"],
+  [/独居/, "独居"],
+  [/单身|母单|脱单/, "单身"],
+  [/i人|内向/, "i人"],
+  [/姐姐|妹妹/, "姐姐妹妹"]
+];
+
+/* 收益分析：类型 → 收益 */
+const TYPE_BENEFIT = {
+  "干货清单": { label: "获得结构化清单", detail: "获得结构化的清单/步骤，可直接照做" },
+  "经历复盘": { label: "获得避坑指南", detail: "从他人踩坑经历中避雷，少走弯路" },
+  "故事叙事": { label: "获得情感共鸣", detail: "从他人故事中找到自己的影子，获得共鸣" },
+  "观点输出": { label: "获得认知升级", detail: "获得新视角，打破固有认知" },
+  "教程攻略": { label: "学会具体方法", detail: "学会具体操作方法，可立即上手" },
+  "好物合集": { label: "发现好物推荐", detail: "发现值得入手的好物，节省挑选时间" },
+  "情绪树洞": { label: "获得情绪释放", detail: "获得情绪释放与被理解感，减轻孤独" },
+  "案例拆解": { label: "理解底层逻辑", detail: "理解成功/失败案例的底层逻辑" },
+  "书摘 / 影视频": { label: "获取精华浓缩", detail: "获取书影精华浓缩，快速吸收知识" }
+};
+
+/* 收益分析：主题 → 收益 */
+const TOPIC_BENEFIT = {
+  "财富挣钱": { label: "提升理财认知", detail: "掌握搞钱方法，建立财务安全感" },
+  "事业职场": { label: "获得职场智慧", detail: "获得职场生存智慧，助力职业发展" },
+  "自我提升": { label: "获得成长方法", detail: "获得成长方法论，找到改变方向" },
+  "情绪管理": { label: "学会情绪和解", detail: "学会与情绪和解，减轻精神内耗" },
+  "人际关系": { label: "改善社交策略", detail: "获得社交技巧，建立健康人际边界" },
+  "恋爱婚姻": { label: "获得情感洞察", detail: "获得情感关系洞察，少走感情弯路" },
+  "外貌变美": { label: "掌握变美技巧", detail: "掌握变美方法，提升外在形象" },
+  "健康作息": { label: "建立健康习惯", detail: "建立健康生活作息，改善身体状态" },
+  "学习方法": { label: "提升学习效率", detail: "找到高效学习方法，提升效率" },
+  "消费观": { label: "建立理性消费观", detail: "避免智商税，建立理性消费习惯" },
+  "生活方式": { label: "获得生活灵感", detail: "获得生活仪式感灵感，提升幸福感" },
+  "女性议题": { label: "增强女性意识", detail: "增强女性意识，获得力量与认同" },
+  "人生阶段": { label: "获得同龄视角", detail: "获得同龄人视角，缓解阶段焦虑" }
+};
+
+/* 收益分析：关键词 → 收益 */
+const BENEFIT_KEYWORDS = [
+  { keys: ["怎么做","步骤","方法","操作","教程","攻略","流程","手把手"], label: "获得具体方法", detail: "文章提供了具体可执行的操作步骤" },
+  { keys: ["认知","思维","真相","本质","底层逻辑","觉醒","悟了","颠覆"], label: "获得认知升级", detail: "帮助读者建立新的认知框架" },
+  { keys: ["治愈","温暖","安慰","理解","共鸣","不是一个人","也有人","心疼"], label: "获得情绪价值", detail: "提供情感抚慰，让读者感到被理解" },
+  { keys: ["加油","冲","坚持","别放弃","你可以","行动","开始","来得及"], label: "获得行动动力", detail: "激发行动欲望，鼓励改变" },
+  { keys: ["踩坑","教训","后悔","千万别","避雷","血泪","别再","后悔"], label: "获得避坑指南", detail: "帮助读者避开常见陷阱" },
+  { keys: ["省钱","平替","性价比","划算","便宜","优惠","不花冤枉钱"], label: "获得省钱技巧", detail: "提供高性价比的省钱方案" },
+  { keys: ["自信","底气","勇敢","做自己","不在乎","配得上","值得","不妥协"], label: "获得自信力量", detail: "帮助读者建立自信与底气" },
+  { keys: ["清单","推荐","合集","好物","分享","入手","回购"], label: "获得好物推荐", detail: "获得精选好物清单，节省挑选时间" }
+];
 
 function analyzeBody(body) {
   const recs = {}; // key -> recommended option list
@@ -520,41 +793,22 @@ function analyzeBody(body) {
   const types = [];
   if ((body.match(/^\s*\d+[、.．)）]/gm) || []).length >= 3 || /第一|第二|第三|首先|其次|最后/.test(body)) types.push("干货清单");
   if (/我是|我曾经|那时候|后来我|毕业|年前我/.test(body) && (body.match(/我/g) || []).length >= 5) types.push("故事叙事");
-  if (/复盘|踩坑|经验|教训|总结/.test(body)) types.push("经验复盘");
+  if (/复盘|踩坑|经历|经验|教训|总结/.test(body)) types.push("经历复盘");
   if (/我认为|我觉得|观点|其实|本质上|真相是/.test(body)) types.push("观点输出");
   if (/步骤|教程|怎么操作|流程|第一步/.test(body)) types.push("教程攻略");
   if (/推荐|好物|清单|合集|分享给/.test(body)) types.push("好物合集");
+  if (/书摘|读书笔记|影评|观后感|电影|纪录片|书单|看书|读后感/.test(body)) types.push("书摘 / 影视频");
   recs.type = types.slice(0, 2);
   if (!recs.type.length) recs.type = ["观点输出"];
   // 情绪
-  recs.emotion = hitWords(body, DICTS.emotion).slice(0, 3).filter(w => DIMS[2].options.includes(w));
-  if (!recs.emotion.length) recs.emotion = ["共情"];
+  // 情绪（EMOTION_MAP 关键词匹配 → 映射到 7 个情绪标签）
+  const emoHits = [];
+  for (const [tag, keys] of Object.entries(EMOTION_MAP)) {
+    if (keys.some(k => body.includes(k))) emoHits.push(tag);
+  }
+  recs.emotion = emoHits.filter((v, i, a) => a.indexOf(v) === i).slice(0, 3).filter(w => DIMS[2].options.includes(w));
+  if (!recs.emotion.length) recs.emotion = ["治愈温暖"];
   // 人群（正则匹配 → 映射到标签体系，按特异性排序）
-  const CROWD_MAP = [
-    [/裸辞|辞职/, "裸辞"],
-    [/\bgap\b|间隔年|gap期/i, "gap期"],
-    [/自由职业|soho|数字游民/i, "自由职业"],
-    [/小镇做题家/, "小镇做题家"],
-    [/考研|研究生/, "考研党"],
-    [/考公|公务员|体制内|编制/, "考公人"],
-    [/留学|留学生/, "留学生"],
-    [/北漂|沪漂|深漂|杭漂/, "北漂沪漂"],
-    [/全职妈妈|全职太太/, "全职妈妈"],
-    [/宝妈|当妈|妈妈们/, "宝妈"],
-    [/职场新人|毕业生|应届|初入职场/, "职场新人"],
-    [/管理层|中层|带团队/, "中层管理"],
-    [/中年|40岁|45岁/, "中年女性"],
-    [/30岁|31岁|32岁|33岁|35岁/, "30+"],
-    [/大学生|学生党|在校/, "学生党"],
-    [/打工人|上班|工位|通勤/, "打工人"],
-    [/社恐/, "社恐"],
-    [/高敏感/, "高敏感"],
-    [/普通女孩|普通人/, "普通女孩"],
-    [/独居/, "独居"],
-    [/单身|母单|脱单/, "单身"],
-    [/i人|内向/, "i人"],
-    [/姐姐|妹妹/, "姐姐妹妹"]
-  ];
   recs.crowd = CROWD_MAP.filter(([re]) => re.test(body)).map(([, v]) => v)
     .filter((v, i, a) => a.indexOf(v) === i).slice(0, 3);
   if (!recs.crowd.length) recs.crowd = ["女生"];
@@ -593,22 +847,230 @@ function bodyAdvice(body, stats, titleAnalysis) {
   return tips;
 }
 
+/* ============ 四版块拆解分析 ============ */
+
+/* ① 目标受众：从正文+标题检测目标人群 */
+function analyzeAudience(body, title) {
+  const text = (body || "") + " " + (title || "");
+  const hits = CROWD_MAP.filter(([re]) => re.test(text)).map(([, v]) => v)
+    .filter((v, i, a) => a.indexOf(v) === i);
+  // 补充：标题中的人群词
+  const titleCrowd = hitWords(title || "", DICTS.crowd);
+  titleCrowd.forEach(w => { if (!hits.includes(w)) hits.push(w); });
+  // 补充：正文中的泛人群词
+  if (!hits.length) {
+    const bodyCrowd = hitWords(body || "", DICTS.crowd);
+    if (bodyCrowd.length) bodyCrowd.slice(0, 3).forEach(w => { if (!hits.includes(w)) hits.push(w); });
+  }
+  const tags = hits.length ? hits.slice(0, 4) : ["泛女性"];
+  const desc = hits.length
+    ? "从正文关键词检测到，这篇内容主要面向 <b>" + hits.join("、") + "</b> 群体"
+    : "未检测到明确人群标签，从内容判断面向 <b>泛女性受众</b>";
+  return { tags, desc };
+}
+
+/* ② 主题：从正文+标题检测核心主题 */
+function analyzeTopicDeep(body, title) {
+  const text = (body || "") + " " + (title || "");
+  const topicScore = {};
+  for (const [t, keys] of Object.entries(TOPIC_KEYS)) {
+    let n = 0; keys.forEach(k => { n += text.split(k).length - 1; });
+    if (n > 0) topicScore[t] = n;
+  }
+  const topics = Object.entries(topicScore).sort((a, b) => b[1] - a[1]).map(x => x[0]).slice(0, 3);
+  const tags = topics.length ? topics : ["待定"];
+  const desc = topics.length
+    ? "正文高频出现以下主题关键词，核心主题为 <b>" + topics[0] + "</b>"
+    : "未检测到明确主题关键词，建议手动判断文章核心话题";
+  return { tags, desc };
+}
+
+/* ③ 爆款要素：检测标题钩子+正文特征，附带原因 */
+function analyzeViralDeep(body, title) {
+  const text = (body || "") + " " + (title || "");
+  const viral = [];
+  if (/\d|一[二三四五六七八九十]/.test(text) && /[条个种方法习惯]/.test(text)) {
+    viral.push({ tag: "数字清单", reason: "标题/正文使用了数字+量词结构，增强信息密度" });
+  }
+  const suspHits = hitWords(text, DICTS.suspense);
+  if (suspHits.length) {
+    viral.push({ tag: "悬念钩子", reason: "包含悬念词：" + suspHits.slice(0, 3).join("、") });
+  }
+  const warnHits = hitWords(text, DICTS.warn);
+  if (warnHits.length) {
+    viral.push({ tag: "警告劝退", reason: "包含警告词：" + warnHits.slice(0, 3).join("、") });
+  }
+  const emoHits = hitWords(text, DICTS.emotion);
+  if (emoHits.length >= 2) {
+    viral.push({ tag: "情绪共鸣", reason: "正文情绪词丰富：" + emoHits.slice(0, 3).join("、") });
+  }
+  const conHits = hitWords(text, DICTS.contrast);
+  if (conHits.length >= 2) {
+    viral.push({ tag: "反差结构", reason: "使用反差转折词，制造意外感" });
+  }
+  if (/普通人|普通女孩|像我这样/.test(text)) {
+    viral.push({ tag: "身份代入", reason: "使用「普通人/像我这样」等词，拉近与读者距离" });
+  }
+  if (/亲测|亲身体验|真实/.test(text)) {
+    viral.push({ tag: "真实感", reason: "强调亲测/真实体验，增强可信度" });
+  }
+  if (/提问|？/.test(text) || hitWords(text, DICTS.question).length) {
+    viral.push({ tag: "提问互动", reason: "包含提问句式，引导读者互动" });
+  }
+  if (!viral.length) viral.push({ tag: "情绪共鸣", reason: "默认推荐：女性成长向内容以情感共鸣为主" });
+  return viral.slice(0, 4);
+}
+
+/* ④ 受众看完的收益：综合类型/主题/关键词检测 */
+function analyzeBenefit(body, title, topicRecs, typeRecs) {
+  const text = (body || "") + " " + (title || "");
+  const benefits = [];
+  const seen = new Set();
+  // 1. 关键词匹配
+  BENEFIT_KEYWORDS.forEach(bk => {
+    if (bk.keys.some(k => text.includes(k))) {
+      if (!seen.has(bk.label)) { seen.add(bk.label); benefits.push({ label: bk.label, detail: bk.detail }); }
+    }
+  });
+  // 2. 类型 → 收益
+  (typeRecs || []).forEach(t => {
+    if (TYPE_BENEFIT[t] && !seen.has(TYPE_BENEFIT[t].label)) {
+      seen.add(TYPE_BENEFIT[t].label);
+      benefits.push(TYPE_BENEFIT[t]);
+    }
+  });
+  // 3. 主题 → 收益
+  (topicRecs || []).forEach(t => {
+    if (TOPIC_BENEFIT[t] && !seen.has(TOPIC_BENEFIT[t].label)) {
+      seen.add(TOPIC_BENEFIT[t].label);
+      benefits.push(TOPIC_BENEFIT[t]);
+    }
+  });
+  if (!benefits.length) {
+    benefits.push({ label: "获得参考与启发", detail: "文章提供了一定参考价值，读者可根据自身情况取用" });
+  }
+  return benefits.slice(0, 5);
+}
+
 /* ============ 工作台状态 ============ */
 const STORE_KEY = "xhs-workbench-v1";
 let library = [];
 try { library = JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); } catch (e) { library = []; }
 function saveLib() { localStorage.setItem(STORE_KEY, JSON.stringify(library)); }
 
+/* 自定义标签持久化（用户可给每个维度添加自己的标签） */
+const CUSTOM_KEY = "xhs-custom-tags-v1";
+let customTags = {};
+try { customTags = JSON.parse(localStorage.getItem(CUSTOM_KEY) || "{}"); } catch (e) { customTags = {}; }
+// 启动时把自定义标签合并进 DIMS
+Object.keys(customTags).forEach(key => {
+  const dim = DIMS.find(d => d.key === key);
+  if (dim) customTags[key].forEach(op => { if (!dim.options.includes(op)) dim.options.push(op); });
+});
+function saveCustom() { localStorage.setItem(CUSTOM_KEY, JSON.stringify(customTags)); }
+/* 添加标签：用自定义弹窗替代 prompt（prompt 在 iframe 中会被拦截） */
+let addTagCtx = null; // { dimKey, ctx, btn }
+function addCustomTag(dimKey, ctx, btn) {
+  const dim = DIMS.find(d => d.key === dimKey);
+  if (!dim) return;
+  addTagCtx = { dimKey, ctx, btn };
+  document.getElementById("addTagDimName").textContent = "添加「" + dim.name + "」标签";
+  const input = document.getElementById("addTagInput");
+  input.value = "";
+  document.getElementById("addTagModal").classList.add("show");
+  setTimeout(() => input.focus(), 100);
+}
+function closeAddTagModal() {
+  document.getElementById("addTagModal").classList.remove("show");
+  addTagCtx = null;
+}
+function confirmAddCustomTag() {
+  if (!addTagCtx) return;
+  const { dimKey, ctx, btn } = addTagCtx;
+  const dim = DIMS.find(d => d.key === dimKey);
+  if (!dim) { closeAddTagModal(); return; }
+  const name = document.getElementById("addTagInput").value;
+  if (!name || !name.trim()) { toast("请输入标签名～"); return; }
+  const tag = name.trim();
+  if (dim.options.includes(tag)) { toast("该标签已存在～"); return; }
+  dim.options.push(tag);
+  if (!customTags[dimKey]) customTags[dimKey] = [];
+  customTags[dimKey].push(tag);
+  saveCustom();
+  // 在按钮前面插入新 chip
+  let chipHtml = "";
+  if (ctx === "filter") {
+    const t = dim.prefix + tag;
+    chipHtml = '<span class="chip" style="margin:0 6px 6px 0;opacity:.75;" data-dim="' + dimKey + '" data-op="' + esc(tag) + '" data-tag="' + esc(t) + '" onclick="toggleTagFilter(\'' + esc(t) + '\', this)">' + esc(tag) + '<i class="chip-del" onclick="event.stopPropagation();deleteTag(\'' + dimKey + '\',this)">×</i></span>';
+  } else if (ctx === "edit") {
+    chipHtml = '<span class="chip" data-dim="' + dimKey + '" data-op="' + esc(tag) + '" onclick="toggleEditChip(this)">' + esc(tag) + '<i class="chip-del" onclick="event.stopPropagation();deleteTag(\'' + dimKey + '\',this)">×</i></span>';
+  } else if (ctx === "save") {
+    chipHtml = '<span class="chip on" data-dim="' + dimKey + '" data-op="' + esc(tag) + '" onclick="toggleSaveTagChip(this)">' + esc(tag) + '<i class="chip-del" onclick="event.stopPropagation();deleteTag(\'' + dimKey + '\',this)">×</i></span>';
+    if (saveTagsState && saveTagsState[dimKey] && !saveTagsState[dimKey].includes(tag)) saveTagsState[dimKey].push(tag);
+  }
+  btn.insertAdjacentHTML("beforebegin", chipHtml);
+  toast("已添加「" + tag + "」✓");
+  closeAddTagModal();
+}
+
+/* 已删除标签持久化（用户可删除任意标签，包括预设和自定义） */
+const DELETED_KEY = "xhs-deleted-tags-v1";
+let deletedTags = {};
+try { deletedTags = JSON.parse(localStorage.getItem(DELETED_KEY) || "{}"); } catch (e) { deletedTags = {}; }
+Object.keys(deletedTags).forEach(key => {
+  const dim = DIMS.find(d => d.key === key);
+  if (dim) deletedTags[key].forEach(op => {
+    const idx = dim.options.indexOf(op);
+    if (idx > -1) dim.options.splice(idx, 1);
+  });
+});
+function saveDeleted() { localStorage.setItem(DELETED_KEY, JSON.stringify(deletedTags)); }
+function deleteTag(dimKey, el) {
+  const chip = el.closest('.chip');
+  if (!chip) return;
+  const op = chip.getAttribute('data-op');
+  if (!op) return;
+  if (!confirm('确定删除「' + op + '」标签？\n已使用此标签的素材不受影响。')) return;
+  const dim = DIMS.find(d => d.key === dimKey);
+  if (!dim) return;
+  const idx = dim.options.indexOf(op);
+  if (idx > -1) dim.options.splice(idx, 1);
+  if (customTags[dimKey]) {
+    const ci = customTags[dimKey].indexOf(op);
+    if (ci > -1) { customTags[dimKey].splice(ci, 1); saveCustom(); }
+  }
+  if (!deletedTags[dimKey]) deletedTags[dimKey] = [];
+  if (!deletedTags[dimKey].includes(op)) deletedTags[dimKey].push(op);
+  saveDeleted();
+  // 同步清理弹窗中的标签状态
+  if (saveTagsState && saveTagsState[dimKey]) {
+    const si = saveTagsState[dimKey].indexOf(op);
+    if (si > -1) saveTagsState[dimKey].splice(si, 1);
+  }
+  if (editTags && editTags[dimKey]) {
+    const ei = editTags[dimKey].indexOf(op);
+    if (ei > -1) editTags[dimKey].splice(ei, 1);
+  }
+  chip.remove();
+  toast('已删除「' + op + '」✓');
+}
+
 let current = null; // 当前拆解结果
 let editId = null, editTags = null;
+let saveTagsState = null; // 存入素材库时的标签确认状态
 let statusFilterOn = null;
 
 function switchTab(t) {
-  document.getElementById("pageAnalyze").style.display = t === "analyze" ? "block" : "none";
-  document.getElementById("pageLib").style.display = t === "lib" ? "block" : "none";
-  document.getElementById("tabBtnAnalyze").classList.toggle("active", t === "analyze");
-  document.getElementById("tabBtnLib").classList.toggle("active", t === "lib");
+  const pages = ["analyze","lib","dyTrend","xhsTrend"];
+  pages.forEach(p => {
+    const el = document.getElementById("page" + p.charAt(0).toUpperCase() + p.slice(1));
+    if (el) el.style.display = t === p ? "block" : "none";
+    const nav = document.getElementById("nav" + p.charAt(0).toUpperCase() + p.slice(1));
+    if (nav) nav.classList.toggle("active", t === p);
+  });
   if (t === "lib") renderLib();
+  if (t === "dyTrend") renderTrend("dy");
+  if (t === "xhsTrend") renderTrend("xhs");
 }
 function toast(msg) {
   const t = document.getElementById("toast");
@@ -618,11 +1080,6 @@ function toast(msg) {
 function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 
 /* ===== 手机访问横幅 ===== */
-let IS_CLOUD = false; // 公网版（无本地服务器）标记
-function initCloudDetect() {
-  if (location.protocol === "file:") { IS_CLOUD = true; return; }
-  fetch("/api/ip").then(r => r.json()).then(d => { if (!d.ok) IS_CLOUD = true; }).catch(() => { IS_CLOUD = true; });
-}
 function initPhoneBanner() {
   const banner = document.getElementById("phoneBanner");
   if (localStorage.getItem("xhs-phone-banner-off") === "1") return; // 用户手动关过
@@ -686,7 +1143,7 @@ function runAnalysis() {
   const title = document.getElementById("inpTitle").value.trim();
   const body = document.getElementById("inpBody").value.trim();
   if (!title && !body) { toast("请至少填写标题或正文～"); return; }
-  if (!title) { toast("标题×封面分析需要标题，请补上标题"); return; }
+  if (!title) { toast("拆解分析需要标题，请补上标题"); return; }
 
   const platform = /xiaohongshu|xhslink/.test(url) ? "小红书" : /douyin|iesdouyin/.test(url) ? "抖音" : url ? "其他" : "手动添加";
   const ta = analyze(title);
@@ -713,19 +1170,35 @@ function runAnalysis() {
     '<div class="v-note" style="color:#B03A63;font-size:12px;margin-bottom:6px;"><b>优化后标题示例</b>（点击复制）</div>' + vs +
     '<div class="v-note">模板自动生成，供 A/B 测试参考，发布前建议人工润色</div>';
 
-  // 六维标签
+  // 四版块拆解分析
   const recs = ba ? ba.recs : { topic: [], type: [], emotion: [], crowd: [], viral: [], source: ["已拆解"] };
-  let dimHtml = "";
-  DIMS.forEach(dim => {
-    dimHtml += '<div class="dim-block"><div class="dim-head"><span class="dim-name">' + dim.name + '</span><span class="dim-rule">' + dim.rule + '</span></div><div>';
-    dim.options.forEach(op => {
-      const rec = (recs[dim.key] || []).includes(op);
-      dimHtml += '<span class="chip' + (rec ? ' rec on' : '') + '" data-dim="' + dim.key + '" data-op="' + esc(op) + '" onclick="this.classList.toggle(\'on\')">' + esc(op) + '</span>';
+  if (body) {
+    // ① 目标受众
+    const aud = analyzeAudience(body, title);
+    document.getElementById("analysisAudience").innerHTML =
+      '<div class="analysis-desc">' + aud.desc + '</div>' +
+      '<div class="analysis-tags">' + aud.tags.map(t => '<span class="analysis-tag">' + esc(t) + '</span>').join("") + '</div>';
+    // ② 主题
+    const tp = analyzeTopicDeep(body, title);
+    document.getElementById("analysisTopic").innerHTML =
+      '<div class="analysis-desc">' + tp.desc + '</div>' +
+      '<div class="analysis-tags">' + tp.tags.map(t => '<span class="analysis-tag">' + esc(t) + '</span>').join("") + '</div>';
+    // ③ 爆款要素
+    const vi = analyzeViralDeep(body, title);
+    document.getElementById("analysisViral").innerHTML =
+      '<div class="analysis-tags">' + vi.map(v => '<span class="analysis-tag">' + esc(v.tag) + '</span>').join("") + '</div>' +
+      vi.map(v => '<div class="analysis-reason">▸ <b>' + esc(v.tag) + '</b>：' + esc(v.reason) + '</div>').join("");
+    // ④ 受众看完的收益
+    const bf = analyzeBenefit(body, title, recs.topic, recs.type);
+    document.getElementById("analysisBenefit").innerHTML =
+      '<div class="benefit-list">' +
+      bf.map((b, i) => '<div class="benefit-item"><div class="benefit-icon">' + (i + 1) + '</div><div class="benefit-content"><div class="benefit-label">' + esc(b.label) + '</div><div class="benefit-detail">' + esc(b.detail) + '</div></div></div>').join("") +
+      '</div>';
+  } else {
+    ["analysisAudience","analysisTopic","analysisViral","analysisBenefit"].forEach(id => {
+      document.getElementById(id).innerHTML = '<div class="analysis-empty">请粘贴正文后进行分析 📝</div>';
     });
-    dimHtml += '</div></div>';
-  });
-  document.getElementById("dimBox").innerHTML = dimHtml;
-  document.getElementById("tagRuleTip").textContent = "规则：主题×1 + 类型×1 保底，全篇 3-6 个标签为宜";
+  }
 
   // 正文建议
   const adviceCard = document.getElementById("bodyAdviceCard");
@@ -745,18 +1218,49 @@ function runAnalysis() {
 }
 
 /* ============ 素材库 ============ */
-function collectSelectedTags() {
-  const tags = [];
-  document.querySelectorAll("#dimBox .chip.on").forEach(c => {
-    const dim = DIMS.find(d => d.key === c.dataset.dim);
-    tags.push(dim.prefix + c.dataset.op);
-  });
-  return tags;
-}
 
+/* 存入素材库：先弹窗自动推荐六维标签，用户确认后保存 */
 function saveToLib() {
   if (!current) return;
-  const tags = collectSelectedTags();
+  if (!current.title) { toast("请先填写标题～"); return; }
+  // 自动推荐标签
+  const ba = current.body ? analyzeBody(current.body) : null;
+  const recs = ba ? ba.recs : { topic: [], type: [], emotion: [], crowd: [], viral: [], source: ["已拆解"] };
+  // 构建弹窗
+  saveTagsState = {};
+  let h = "";
+  DIMS.forEach(dim => {
+    const selected = (recs[dim.key] || []).slice();
+    saveTagsState[dim.key] = selected;
+    h += '<div class="dim-block"><div class="dim-head"><span class="dim-name">' + dim.name + '</span><span class="dim-rule">' + dim.rule + '</span></div><div>';
+    dim.options.forEach(op => {
+      const rec = selected.includes(op);
+      h += '<span class="chip' + (rec ? ' rec on' : '') + '" data-dim="' + dim.key + '" data-op="' + esc(op) + '" onclick="toggleSaveTagChip(this)">' + esc(op) + '<i class="chip-del" onclick="event.stopPropagation();deleteTag(\'' + dim.key + '\',this)">×</i></span>';
+    });
+    h += '<span class="chip chip-add" onclick="addCustomTag(\'' + dim.key + '\',\'save\',this)">+ 添加</span>';
+    h += '</div></div>';
+  });
+  document.getElementById("saveTagDimBox").innerHTML = h;
+  document.getElementById("saveTagTitlePreview").textContent = current.title;
+  document.getElementById("saveTagModal").classList.add("show");
+}
+function toggleSaveTagChip(el) {
+  el.classList.toggle("on");
+  const arr = saveTagsState[el.dataset.dim];
+  const op = el.dataset.op;
+  const i = arr.indexOf(op);
+  if (el.classList.contains("on") && i < 0) arr.push(op);
+  if (!el.classList.contains("on") && i >= 0) arr.splice(i, 1);
+}
+function closeSaveTag() {
+  document.getElementById("saveTagModal").classList.remove("show");
+}
+function confirmSaveToLib() {
+  if (!current) return;
+  const tags = [];
+  DIMS.forEach(dim => {
+    saveTagsState[dim.key].forEach(op => tags.push(dim.prefix + op));
+  });
   if (!tags.some(t => t.startsWith("主题：")) || !tags.some(t => t.startsWith("类型："))) {
     toast("主题和类型至少各选 1 个哦～"); return;
   }
@@ -771,6 +1275,7 @@ function saveToLib() {
   });
   saveLib();
   document.getElementById("libCount").textContent = library.length;
+  closeSaveTag();
   toast("已存入素材库 ✓");
   switchTab("lib");
 }
@@ -803,14 +1308,26 @@ function renderLib() {
   library.forEach(m => m.tags.forEach(t => { used[t] = (used[t] || 0) + 1; }));
   let fh = "";
   DIMS.forEach(dim => {
-    fh += '<div style="margin-bottom:4px;"><span class="df-label">' + dim.name + '</span>';
-    dim.options.forEach(op => {
-      const t = dim.prefix + op;
-      const n = used[t] || 0;
-      const on = tagF.includes(t) ? " on" : "";
-      fh += '<span class="chip' + on + '" style="margin:0 6px 6px 0;' + (n ? "" : "opacity:.75;") + '" data-tag="' + esc(t) + '" onclick="toggleTagFilter(\'' + esc(t) + '\', this)">' + esc(op) + (n ? '<span style="opacity:.55;font-size:10px;margin-left:3px;">' + n + '</span>' : "") + '</span>';
-    });
-    fh += '</div>';
+    fh += '<div class="filter-dim"><div class="filter-dim-head"><span class="filter-dim-name">' + dim.name + '</span><span class="filter-dim-rule">' + dim.rule + '</span></div><div class="filter-dim-body">';
+    const renderOpts = (opts) => {
+      opts.forEach(op => {
+        const t = dim.prefix + op;
+        const n = used[t] || 0;
+        const on = tagF.includes(t) ? " on" : "";
+        fh += '<span class="chip' + on + '" style="margin:0 6px 6px 0;' + (n ? "" : "opacity:.75;") + '" data-dim="' + dim.key + '" data-op="' + esc(op) + '" data-tag="' + esc(t) + '" onclick="toggleTagFilter(\'' + esc(t) + '\', this)">' + esc(op) + (n ? '<span style="opacity:.55;font-size:10px;margin-left:3px;">' + n + '</span>' : "") + '<i class="chip-del" onclick="event.stopPropagation();deleteTag(\'' + dim.key + '\',this)">×</i></span>';
+      });
+    };
+    if (dim.groups) {
+      dim.groups.forEach(g => {
+        fh += '<div class="dim-group-row"><span class="dim-subgroup">' + g.label + '</span>';
+        renderOpts(g.options);
+        fh += '</div>';
+      });
+    } else {
+      renderOpts(dim.options);
+    }
+    fh += '<span class="chip chip-add" onclick="addCustomTag(\'' + dim.key + '\',\'filter\',this)">+ 添加</span>';
+    fh += '</div></div>';
   });
   document.getElementById("tagFilterBox").innerHTML = fh;
 
@@ -882,9 +1399,20 @@ function openEdit(id) {
     const selected = m.tags.filter(t => t.startsWith(dim.prefix)).map(t => t.slice(dim.prefix.length));
     editTags[dim.key] = selected;
     h += '<div class="dim-block"><div class="dim-head"><span class="dim-name">' + dim.name + '</span><span class="dim-rule">' + dim.rule + '</span></div><div>';
-    dim.options.forEach(op => {
-      h += '<span class="chip' + (selected.includes(op) ? " on" : "") + '" data-dim="' + dim.key + '" data-op="' + esc(op) + '" onclick="toggleEditChip(this)">' + esc(op) + '</span>';
-    });
+    if (dim.groups) {
+      dim.groups.forEach(g => {
+        h += '<div class="dim-group-row"><span class="dim-subgroup">' + g.label + '</span>';
+        g.options.forEach(op => {
+          h += '<span class="chip' + (selected.includes(op) ? " on" : "") + '" data-dim="' + dim.key + '" data-op="' + esc(op) + '" onclick="toggleEditChip(this)">' + esc(op) + '<i class="chip-del" onclick="event.stopPropagation();deleteTag(\'' + dim.key + '\',this)">×</i></span>';
+        });
+        h += '</div>';
+      });
+    } else {
+      dim.options.forEach(op => {
+        h += '<span class="chip' + (selected.includes(op) ? " on" : "") + '" data-dim="' + dim.key + '" data-op="' + esc(op) + '" onclick="toggleEditChip(this)">' + esc(op) + '<i class="chip-del" onclick="event.stopPropagation();deleteTag(\'' + dim.key + '\',this)">×</i></span>';
+      });
+    }
+    h += '<span class="chip chip-add" onclick="addCustomTag(\'' + dim.key + '\',\'edit\',this)">+ 添加</span>';
     h += '</div></div>';
   });
   document.getElementById("editDimBox").innerHTML = h;
@@ -963,8 +1491,189 @@ function fallbackCopy(text, done) {
   ta.remove(); done();
 }
 
+/* ============ 趋势周报 ============ */
+const TREND_KEY = "xhs-trend-v1";
+let trendData = {};
+try { trendData = JSON.parse(localStorage.getItem(TREND_KEY) || "{}"); } catch (e) { trendData = {}; }
+if (!trendData.dy) trendData.dy = [];
+if (!trendData.xhs) trendData.xhs = [];
+
+/* === 趋势种子数据版本机制 ===
+   SEED_TREND_VERSION 由自动化任务每日更新。
+   当浏览器检测到版本变化时，自动将新周报数据插入到现有数据前面（去重）。
+   用户自己添加的数据不会被覆盖。 */
+const SEED_TREND_VERSION = "2026-08-18";
+const SEED_VERSION_KEY = "xhs-trend-seed-version";
+const SEED_TREND_KEY = "xhs-trend-seeded-v1";
+
+/* 最新一周种子数据（自动化任务每天更新此区域） */
+const SEED_DY_DATA = [{
+  label: "W33 · 8月12日-18日",
+  date: "2026-08-18",
+  topics: [
+    "温婉雅致慢生活 - 9千亿流量话题第一名，中年女性\"慢生活\"图文内容爆发，单条点赞破10万",
+    "女孩靠自己才是靠山 - 热搜话题阅读量持续攀升，经济独立+情绪稳定+人格清醒三重框架引发全网共鸣",
+    "冷门副业逆袭 - 裸辞做抖音本地生活半年赚30万案例走红，\"不卷热门赛道\"成新共识",
+    "教养型女性 - #教养型女性搜索量暴涨317%，\"美貌会过期，教养会增值\"成新认知",
+    "搞钱第一步 - 女性搞钱方法论持续走高，\"打造个人IP+多元化收入\"成热门方向"
+  ],
+  pains: [
+    "搞钱方向迷茫，想副业但找不到合适赛道，不知道从哪入手",
+    "裸辞后经济压力焦虑，想自由职业又怕不稳定",
+    "职场年龄焦虑加剧，35+女性担心被裁后不知道做什么",
+    "颜值焦虑退潮后的方向迷茫——不再拼颜值，但不知道拼什么",
+    "想要\"慢生活\"但被经济压力绑架，向往与现实的矛盾"
+  ],
+  summary: "本周抖音女性成长赛道呈现\"向内扎根\"趋势——从外在颜值焦虑转向内在修养与经济独立双重建设。\"温婉雅致慢生活\"成为流量顶流，反映用户对精神松弛的强烈需求；\"女孩靠自己才是靠山\"热搜强化经济独立认知；冷门副业案例走红说明用户更关注可落地的搞钱方向。建议内容创作侧重：慢生活+搞钱实操结合，避免纯鸡汤。"
+}];
+
+const SEED_XHS_DATA = [{
+  label: "W33 · 8月12日-18日",
+  date: "2026-08-18",
+  topics: [
+    "独处力修炼指南 - #独处力修炼指南笔记超47万篇，\"独处是女人最好的增值期\"成高频金句",
+    "有灵魂的女生 - 话题阅读量突破8.3亿，\"灵魂感\"替代\"精致感\"成为新顶流关键词",
+    "有福之女不入无福之门 - 37万+女性自发转发，关系边界感与及时止损成热门议题",
+    "主体性觉醒 - \"上桌吃饭\"\"爱你老己\"等话题浏览量超16亿，女性主体意识全面觉醒",
+    "活人感/气血感 - \"活人感\"话题浏览量上亿，用户厌倦精致滤镜，渴求真实生命力"
+  ],
+  pains: [
+    "独处时焦虑不安，无法享受一个人的时光，害怕被社会边缘化",
+    "在消耗型关系中犹豫不决，想止损又怕孤独",
+    "精致人设维持成本高，想卸下\"滤镜\"但怕掉粉被评判",
+    "\"灵魂感\"内容想尝试但不知如何表达，缺乏深度内容创作能力",
+    "主体性觉醒后的行动迷茫——认知到了，但不知道具体怎么改变"
+  ],
+  summary: "本周小红书女性成长赛道呈现\"灵魂觉醒\"趋势——从外在精致转向内在灵魂感。\"独处力修炼\"和\"有灵魂的女生\"两大话题共占据超13亿阅读量，反映用户对精神深度的强烈渴求。\"有福之女不入无福之门\"引爆关系边界讨论，\"主体性觉醒\"和\"活人感\"持续升温，说明用户正从\"被看见\"转向\"被自己听见\"。建议内容创作侧重：真实感+独处方法论+关系断舍离实操。"
+}];
+
+/* 版本检测：如果种子版本更新了，将新周报数据插入到现有数据前面（去重） */
+(function seedTrendData() {
+  const storedVersion = localStorage.getItem(SEED_VERSION_KEY);
+  if (storedVersion === SEED_TREND_VERSION) return; /* 版本未变，无需更新 */
+
+  let changed = false;
+
+  /* 抖音种子数据 */
+  SEED_DY_DATA.forEach(function(item) {
+    var exists = trendData.dy.some(function(d) { return d.label === item.label; });
+    if (!exists) {
+      trendData.dy.unshift({
+        id: Date.now() + Math.random(),
+        label: item.label,
+        date: item.date,
+        topics: item.topics,
+        pains: item.pains,
+        summary: item.summary
+      });
+      changed = true;
+    }
+  });
+
+  /* 小红书种子数据 */
+  SEED_XHS_DATA.forEach(function(item) {
+    var exists = trendData.xhs.some(function(d) { return d.label === item.label; });
+    if (!exists) {
+      trendData.xhs.unshift({
+        id: Date.now() + Math.random(),
+        label: item.label,
+        date: item.date,
+        topics: item.topics,
+        pains: item.pains,
+        summary: item.summary
+      });
+      changed = true;
+    }
+  });
+
+  if (changed) saveTrendData();
+  localStorage.setItem(SEED_VERSION_KEY, SEED_TREND_VERSION);
+  localStorage.setItem(SEED_TREND_KEY, "1");
+})();
+function saveTrendData() { localStorage.setItem(TREND_KEY, JSON.stringify(trendData)); }
+
+let trendEditingPlatform = null;
+let trendEditingId = null;
+
+function openTrendForm(platform) {
+  trendEditingPlatform = platform;
+  trendEditingId = null;
+  document.getElementById("trendModalTitle").textContent = "➕ 新增" + (platform === "dy" ? "抖音" : "小红书") + "周报";
+  document.getElementById("trendWeekLabel").value = "";
+  document.getElementById("trendTopics").value = "";
+  document.getElementById("trendPains").value = "";
+  document.getElementById("trendSummary").value = "";
+  document.getElementById("trendModal").classList.add("show");
+}
+function closeTrendModal() {
+  document.getElementById("trendModal").classList.remove("show");
+  trendEditingPlatform = null;
+  trendEditingId = null;
+}
+function editTrendItem(platform, id) {
+  const list = trendData[platform] || [];
+  const item = list.find(x => x.id === id);
+  if (!item) return;
+  trendEditingPlatform = platform;
+  trendEditingId = id;
+  document.getElementById("trendModalTitle").textContent = "✏️ 编辑" + (platform === "dy" ? "抖音" : "小红书") + "周报";
+  document.getElementById("trendWeekLabel").value = item.label || "";
+  document.getElementById("trendTopics").value = (item.topics || []).join("\n");
+  document.getElementById("trendPains").value = (item.pains || []).join("\n");
+  document.getElementById("trendSummary").value = item.summary || "";
+  document.getElementById("trendModal").classList.add("show");
+}
+function saveTrend() {
+  if (!trendEditingPlatform) return;
+  const label = document.getElementById("trendWeekLabel").value.trim();
+  if (!label) { toast("请填写周报标题～"); return; }
+  const topics = document.getElementById("trendTopics").value.split("\n").map(s => s.trim()).filter(Boolean);
+  const pains = document.getElementById("trendPains").value.split("\n").map(s => s.trim()).filter(Boolean);
+  const summary = document.getElementById("trendSummary").value.trim();
+  const list = trendData[trendEditingPlatform];
+  if (trendEditingId) {
+    const item = list.find(x => x.id === trendEditingId);
+    if (item) { item.label = label; item.topics = topics; item.pains = pains; item.summary = summary; }
+  } else {
+    list.unshift({ id: Date.now(), label, topics, pains, summary, date: new Date().toISOString().slice(0, 10) });
+  }
+  saveTrendData();
+  closeTrendModal();
+  renderTrend(trendEditingPlatform || "dy");
+  toast("周报已保存 ✓");
+}
+function deleteTrendItem(platform, id) {
+  if (!confirm("确定删除这条周报？")) return;
+  trendData[platform] = trendData[platform].filter(x => x.id !== id);
+  saveTrendData();
+  renderTrend(platform);
+  toast("已删除 ✓");
+}
+function renderTrend(platform) {
+  const list = trendData[platform] || [];
+  const containerId = platform === "dy" ? "dyTrendList" : "xhsTrendList";
+  const emptyId = platform === "dy" ? "dyTrendEmpty" : "xhsTrendEmpty";
+  document.getElementById(emptyId).style.display = list.length ? "none" : "block";
+  const icon = platform === "dy" ? "📊" : "📕";
+  document.getElementById(containerId).innerHTML = list.map(item => {
+    const topicHtml = (item.topics || []).map((t, i) => {
+      const parts = t.split(" - ");
+      const name = parts[0] || t;
+      const desc = parts.slice(1).join(" - ");
+      return '<div class="topic-row"><div class="topic-rank">' + (i + 1) + '</div><div class="topic-content"><div class="topic-name">' + esc(name) + '</div>' + (desc ? '<div class="topic-desc">' + esc(desc) + '</div>' : '') + '</div></div>';
+    }).join("");
+    const painHtml = (item.pains || []).map(p => '<div class="pain-row"><div class="pain-dot"></div><div class="pain-text">' + esc(p) + '</div></div>').join("");
+    return '<div class="week-card">' +
+      '<div class="week-card-head"><div class="week-card-title">' + icon + ' ' + esc(item.label) + '</div>' +
+      '<div class="week-card-meta">' + esc(item.date || "") + ' · <a style="cursor:pointer;color:#F06292;" onclick="editTrendItem(\'' + platform + '\',' + item.id + ')">编辑</a> · <a style="cursor:pointer;color:#F06292;" onclick="deleteTrendItem(\'' + platform + '\',' + item.id + ')">删除</a></div></div>' +
+      (topicHtml ? '<div class="week-section"><div class="week-section-title">🔥 热门话题</div>' + topicHtml + '</div>' : '') +
+      (painHtml ? '<div class="week-section"><div class="week-section-title">💔 用户痛点</div>' + painHtml + '</div>' : '') +
+      (item.summary ? '<div class="week-section"><div class="week-section-title">📝 总结与洞察</div><div style="font-size:13px;color:#6B4A57;line-height:1.6;">' + esc(item.summary) + '</div></div>' : '') +
+    '</div>';
+  }).join("");
+}
+
 document.getElementById("libCount").textContent = library.length;
-initCloudDetect();
 initPhoneBanner();
 </script>
 </body>
